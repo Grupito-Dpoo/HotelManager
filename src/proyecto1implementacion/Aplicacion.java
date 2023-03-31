@@ -193,8 +193,7 @@ public class Aplicacion {
            		System.out.println("Por favor seleccione una opcion:");
 				System.out.println("1. Subir archivo");
 				System.out.println("2. Cambiar informacion individualmente");
-				System.out.println("3. Cambiar de usuario");
-				System.out.println("4. Salir");
+				System.out.println("3. Volver al menu anterior");
 			
 				opcion = Integer.parseInt(input("Seleccione una opcion"));
 				
@@ -212,10 +211,6 @@ public class Aplicacion {
 						System.out.println("Se ha cambiado la informacion de un plato.");
 						break;
 					case 3:
-						// Código para cambiar de usuario
-						System.out.println("Se ha cambiado de usuario.");
-						break;
-					case 4:
 						salir = true;
 						System.out.println("Hasta pronto! "+usuarioActual.getLogin());
 						break;
