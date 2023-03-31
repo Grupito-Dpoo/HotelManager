@@ -29,7 +29,7 @@ public class Aplicacion {
 		while (continuar && usuarioActual == null) {
 
 			mostrarMenu();
-			int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opción"));
+			int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
 			if (opcion_seleccionada == 1) {
 				try {
 					registrarNuevoEmpleado();
@@ -45,10 +45,10 @@ public class Aplicacion {
 					System.err.println(e.getMessage());
 				}
 			} else if (opcion_seleccionada == 3) {
-				System.out.println("\nSaliendo de la aplicación ...");
+				System.out.println("\nSaliendo de la aplicacion ...");
 				continuar = false;
 			} else {
-				System.out.println("\nPor favor seleccione una opción válida.");
+				System.out.println("\nPor favor seleccione una opción valida.");
 			}
 		}
 	}
