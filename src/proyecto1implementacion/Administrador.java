@@ -1,7 +1,8 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
 
-public class Administrador extends UsuarioSistema {
+public class Administrador extends UsuarioSistema implements Serializable{
 	
 	public Administrador(String login, String password, Hotel hotel) {
 		super(login, password, hotel);
