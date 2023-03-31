@@ -21,14 +21,13 @@ public class Habitacion {
 
     
     public Habitacion(tipoHabitacion TipoHabitacion, boolean Balcon,
-            String Vista, boolean CocinaIntegrada, ArrayList<Cama> Camas, Huesped HuespedActual,
+            String Vista, boolean CocinaIntegrada, ArrayList<Cama> Camas,
             String Ubicacion) {
         this.TipoHabitacion = TipoHabitacion;
         this.Balcon = Balcon;
         this.Vista = Vista;
         this.CocinaIntegrada = CocinaIntegrada;
         this.Camas = Camas;
-        this.HuespedActual = HuespedActual;
         this.Ubicacion = Ubicacion;
         this.Identificador = habitacionesCreadas;
         Habitacion.habitacionesCreadas += 1;
