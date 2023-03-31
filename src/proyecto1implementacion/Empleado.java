@@ -11,7 +11,7 @@ public class Empleado extends UsuarioSistema {
 	}
 
 	public String getLogin() {
-		return super.getLogin();
+		return super.getLogin(); 
 	}
 	
 	public String getPassword() {
