@@ -183,7 +183,7 @@ public class Aplicacion {
 	}
 
 	private void menuAdministrador() {
-		Scanner sc = new Scanner(System.in);
+		
 			int opcion = 0;
 			boolean salir = false;
 			
@@ -195,13 +195,12 @@ public class Aplicacion {
 				System.out.println("2. Cambiar info de un plato");
 				System.out.println("3. Cambiar de usuario");
 				System.out.println("4. Salir");
-				
-				System.out.print("Seleccione una opción: ");
-				opcion = sc.nextInt();
-				sc.nextLine(); 
+			
+				opcion = Integer.parseInt(input("Seleccione una opción"));
 				
 				switch (opcion) {
 					case 1:
+
 						//subir archivos de platos
 						System.out.println("Se han subido los archivos de platos.");
 						break;
