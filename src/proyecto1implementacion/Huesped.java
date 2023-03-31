@@ -70,7 +70,7 @@ public class Huesped {
 
     public Consumo buscarConsumo(Integer identificador) {
         for (Consumo c : consumosAsociados) {
-            if (c.getIdenficador().equals(identificador)) {
+            if (c.getIdentificador().equals(identificador)) {
                 return c;
             }
         }
