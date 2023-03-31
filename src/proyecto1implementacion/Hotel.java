@@ -121,6 +121,10 @@ public class Hotel {
 		this.servicios = servicios;
 	}
 
+	public void addServicios(Servicio servicio) {
+		this.servicios.add(servicio);
+	}
+
 	public HashMap<Integer, Habitacion> getTotalHabitaciones() {
 		return totalHabitaciones;
 	}

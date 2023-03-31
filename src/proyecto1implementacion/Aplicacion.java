@@ -15,9 +15,11 @@ public class Aplicacion {
 	private Hotel hotel;
 	private UsuarioSistema usuarioActual;
 	private File archivoUsuarios = new File("data/Usuarios.csv");
+	Restaurante restaurante = new Restaurante();
 
 	public void ejecutarOpcion() {
 		hotel = new Hotel("House System");
+		hotel.addServicios(restaurante);
 
 		try {
 			cargarUsuarios(archivoUsuarios);
@@ -163,7 +165,7 @@ public class Aplicacion {
 		return null;
 	}
 
-	public void menuUsuario(){
+	private void menuUsuario(){
 		if (usuarioActual instanceof Administrador){
 			menuAdministrador();
 		}
@@ -191,8 +193,8 @@ public class Aplicacion {
 				System.out.println("------Menu Administrador------");
 				System.out.println("Bienvenido, " + usuarioActual.getLogin());
            		System.out.println("Por favor seleccione una opción:");
-				System.out.println("1. Subir archivos Platos");
-				System.out.println("2. Cambiar info de un plato");
+				System.out.println("1. Subir archivo");
+				System.out.println("2. Cambiar informacion individualmente");
 				System.out.println("3. Cambiar de usuario");
 				System.out.println("4. Salir");
 			
@@ -200,6 +202,8 @@ public class Aplicacion {
 				
 				switch (opcion) {
 					case 1:
+						String Ruta = input("Escriba la ruta del archivo a subir");
+						restaurante.CargarAlimentos("file");
 
 						//subir archivos de platos
 						System.out.println("Se han subido los archivos de platos.");
