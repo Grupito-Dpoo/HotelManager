@@ -6,15 +6,42 @@ import proyecto1implementacion.Servicio.areaAsociada;
  *
  * @author Johan Bautista
  */
-public class Factura extends contable {
+public class Factura{
 
-    private Consumo InformacionConsumo;
+    private static Integer FacturasExpedidas;
+    private Consumo informacionConsumo;
+    private Huesped Huesped;
+    private LocalDate Fecha;
 
-    public Factura(String Fecha, Consumo InformacionConsumo, float ValorPagado) {
 
-        super(Fecha, InformacionConsumo.getAreaAsociada(),
-                InformacionConsumo.getHuesped(), InformacionConsumo.getHabitacion(), ValorPagado);
-        this.InformacionConsumo = InformacionConsumo;
+    public Consumo getInformacionConsumo() {
+        return informacionConsumo;
     }
+
+    public void setInformacionConsumo(Consumo informacionConsumo) {
+        this.informacionConsumo = informacionConsumo;
+    }
+
+    public Huesped getHuesped() {
+        return Huesped;
+    }
+
+    public void setHuesped(Huesped Huesped) {
+        this.Huesped = Huesped;
+    }
+
+    public LocalDate getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(LocalDate Fecha) {
+        this.Fecha = Fecha;
+    }
+    
+    
+
+    
+
+
 
 }
