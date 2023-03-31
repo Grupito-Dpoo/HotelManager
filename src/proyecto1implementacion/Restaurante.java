@@ -59,5 +59,28 @@ public class Restaurante extends Servicio implements Serializable{
             System.out.println("Error al leer el archivo: " + e.getMessage());
         }
     }
+    public ArrayList<Alimento> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(ArrayList<Alimento> menu) {
+        this.menu = menu;
+    }
+
+    public ArrayList<Alimento> getParaHabitacion() {
+        return paraHabitacion;
+    }
+
+    public void setParaHabitacion(ArrayList<Alimento> paraHabitacion) {
+        this.paraHabitacion = paraHabitacion;
+    }
+
+    public ArrayList<Alimento> getParaRestaurante() {
+        return paraRestaurante;
+    }
+
+    public void setParaRestaurante(ArrayList<Alimento> paraRestaurante) {
+        this.paraRestaurante = paraRestaurante;
+    }
 
 }

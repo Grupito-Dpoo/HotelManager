@@ -1,0 +1,9 @@
+Plato;Hamburguesa;5.00;false;Almuerzo
+Plato;Pizza;8.00;false;Cena
+Bebida;Refresco;1.50;true;Desayuno
+Bebida;Cerveza;3.00;false;Cena
+Plato;Ensalada;6.50;false;Almuerzo
+Plato;Sandwich;4.00;true;Desayuno
+Plato;Sopa;5.50;true;Almuerzo
+Bebida;Zumo de naranja;2.00;true;Desayuno
+Plato;Pasta;7.50;false;Cena

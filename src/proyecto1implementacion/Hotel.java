@@ -12,7 +12,7 @@ public class Hotel {
 	private HashMap<String, Huesped> huespedes;
 	private HashMap<Integer, Reserva> reservaciones;
 	private HashMap<String, UsuarioSistema> empleados;
-	private ArrayList<Servicio> servicios;
+	private HashMap<String, Servicio> servicios;
 
 	public Hotel(String nombre) {
 		this.nombre = nombre;
@@ -21,7 +21,10 @@ public class Hotel {
 		this.huespedes = new HashMap<>();
 		this.reservaciones = new HashMap<>();
 		this.empleados = new HashMap<>();
-		this.servicios = new ArrayList<>();
+		this.servicios = new HashMap<>();
+		Restaurante restaurante = new Restaurante();
+		this.servicios.put("Restaurante", restaurante);
+
 	}
 
 	public Huesped buscarHuesped(String nombreHuesped) {
@@ -113,16 +116,12 @@ public class Hotel {
 		this.empleados = empleados;
 	}
 
-	public ArrayList<Servicio> getServicios() {
+	public HashMap<String,Servicio> getServicios() {
 		return servicios;
 	}
 
-	public void setServicios(ArrayList<Servicio> servicios) {
+	public void setServicios(HashMap<String, Servicio> servicios) {
 		this.servicios = servicios;
-	}
-
-	public void addServicios(Servicio servicio) {
-		this.servicios.add(servicio);
 	}
 
 	public HashMap<Integer, Habitacion> getTotalHabitaciones() {

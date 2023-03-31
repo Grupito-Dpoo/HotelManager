@@ -7,20 +7,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Aplicacion {
 
 	private Hotel hotel;
 	private UsuarioSistema usuarioActual;
 	private File archivoUsuarios = new File("data/Usuarios.csv");
-	Restaurante restaurante = new Restaurante();
 
 	public void ejecutarOpcion() {
 		hotel = new Hotel("House System");
-		hotel.addServicios(restaurante);
-
+		
 		try {
 			cargarUsuarios(archivoUsuarios);
 		} catch (Exception e) {
@@ -43,7 +41,7 @@ public class Aplicacion {
 			} else if (opcion_seleccionada == 2) {
 				try {
 					iniciarSesionEmpleado();
-					//menuUsuario();
+					menuUsuario();
 				} catch (Exception e) {
 
 					System.err.println(e.getMessage());
@@ -52,7 +50,7 @@ public class Aplicacion {
 				System.out.println("\nSaliendo de la aplicacion ...");
 				continuar = false;
 			} else {
-				System.out.println("\nPor favor seleccione una opción valida.");
+				System.out.println("\nPor favor seleccione una opcion valida.");
 			}
 		}
 	}
@@ -63,7 +61,7 @@ public class Aplicacion {
 
 		System.out.println("Bienvenido al hotel " + nombre);
 		System.out.println("1. Registrar nuevo empleado");
-		System.out.println("2. Iniciar sesión empleado");
+		System.out.println("2. Iniciar sesion empleado");
 		System.out.println("3. Salir");
 	}
 
@@ -150,7 +148,7 @@ public class Aplicacion {
 		}
 
 		usuarioActual = usuario;
-		System.out.println("Has iniciado sesión correctamente.");
+		System.out.println("Has iniciado sesion correctamente.");
 	}
 
 	public String input(String mensaje) {
@@ -192,25 +190,26 @@ public class Aplicacion {
 			while (!salir) {
 				System.out.println("------Menu Administrador------");
 				System.out.println("Bienvenido, " + usuarioActual.getLogin());
-           		System.out.println("Por favor seleccione una opción:");
+           		System.out.println("Por favor seleccione una opcion:");
 				System.out.println("1. Subir archivo");
 				System.out.println("2. Cambiar informacion individualmente");
 				System.out.println("3. Cambiar de usuario");
 				System.out.println("4. Salir");
 			
-				opcion = Integer.parseInt(input("Seleccione una opción"));
+				opcion = Integer.parseInt(input("Seleccione una opcion"));
 				
 				switch (opcion) {
 					case 1:
 						String Ruta = input("Escriba la ruta del archivo a subir");
+						Restaurante restaurante = (Restaurante) hotel.getServicios().get("Restaurante");
 						restaurante.CargarAlimentos(Ruta);
-
-						//subir archivos de platos
-						System.out.println("Se han subido los archivos de platos.");
+						System.out.println("Se han subido los archivos de alimentos.");
+						System.out.println("MENU");
+						imprimirMenu(restaurante.getMenu());
 						break;
 					case 2:
 						// Código para cambiar información de un plato
-						System.out.println("Se ha cambiado la información de un plato.");
+						System.out.println("Se ha cambiado la informacion de un plato.");
 						break;
 					case 3:
 						// Código para cambiar de usuario
@@ -221,11 +220,23 @@ public class Aplicacion {
 						System.out.println("Hasta pronto! "+usuarioActual.getLogin());
 						break;
 					default:
-						System.out.println("Opción no valida.");
+						System.out.println("Opcion no valida.");
 						break;
 				}
 			}
 	}
+
+	public static void imprimirMenu(ArrayList<Alimento> alimentos) {
+			
+		System.out.printf("%-15s %-20s %-10s %-20s %-15s\n",
+		"Tipo", "Nombre", "Tarifa", "LugarDisponibilidad", "Horario");
+		System.out.println("--------------------------------------------------------------");
+		for (Alimento alimento : alimentos) {
+				System.out.printf("%-15s %-20s %-10.2f %-20s %-15s\n",
+					alimento.getTipo(), alimento.getNombre(), alimento.getTarifa(),
+					alimento.isLugarDisponibilidad() ? "Habitacion" : "Restaurante", alimento.getHorario());
+			}
+		}
 
 	public static void main(String[] args) {
 		Aplicacion app = new Aplicacion();
