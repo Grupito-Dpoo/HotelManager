@@ -203,7 +203,7 @@ public class Aplicacion {
 				switch (opcion) {
 					case 1:
 						String Ruta = input("Escriba la ruta del archivo a subir");
-						restaurante.CargarAlimentos("file");
+						restaurante.CargarAlimentos(Ruta);
 
 						//subir archivos de platos
 						System.out.println("Se han subido los archivos de platos.");
