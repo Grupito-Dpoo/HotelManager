@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Aplicacion {
 
@@ -40,6 +41,7 @@ public class Aplicacion {
 			} else if (opcion_seleccionada == 2) {
 				try {
 					iniciarSesionEmpleado();
+					//menuUsuario();
 				} catch (Exception e) {
 
 					System.err.println(e.getMessage());
@@ -159,6 +161,67 @@ public class Aplicacion {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void menuUsuario(){
+		if (usuarioActual instanceof Administrador){
+			menuAdministrador();
+		}
+		else if (usuarioActual instanceof Empleado){
+			menuEmpleado();
+		}
+		else if (usuarioActual instanceof EmpleadoRecepcion){
+			menuEmpleadoRecepcion();
+		}
+	}
+	
+	
+	private void menuEmpleadoRecepcion() {
+	}
+
+	private void menuEmpleado() {
+	}
+
+	private void menuAdministrador() {
+		Scanner sc = new Scanner(System.in);
+			int opcion = 0;
+			boolean salir = false;
+			
+			while (!salir) {
+				System.out.println("------Menu Administrador------");
+				System.out.println("Bienvenido, " + usuarioActual.getLogin());
+           		System.out.println("Por favor seleccione una opción:");
+				System.out.println("1. Subir archivos Platos");
+				System.out.println("2. Cambiar info de un plato");
+				System.out.println("3. Cambiar de usuario");
+				System.out.println("4. Salir");
+				
+				System.out.print("Seleccione una opción: ");
+				opcion = sc.nextInt();
+				sc.nextLine(); 
+				
+				switch (opcion) {
+					case 1:
+						//subir archivos de platos
+						System.out.println("Se han subido los archivos de platos.");
+						break;
+					case 2:
+						// Código para cambiar información de un plato
+						System.out.println("Se ha cambiado la información de un plato.");
+						break;
+					case 3:
+						// Código para cambiar de usuario
+						System.out.println("Se ha cambiado de usuario.");
+						break;
+					case 4:
+						salir = true;
+						System.out.println("Hasta pronto! "+usuarioActual.getLogin());
+						break;
+					default:
+						System.out.println("Opción no valida.");
+						break;
+				}
+			}
 	}
 
 	public static void main(String[] args) {
