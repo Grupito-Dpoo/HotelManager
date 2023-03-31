@@ -48,11 +48,11 @@ public class Hotel {
 		}
 		
 		if (login.isEmpty()) {
-			throw new Exception("Nombre de usuario inválido.");
+			throw new Exception("Nombre de usuario invalido.");
 		}
 		
 		if (password.isEmpty()) {
-			throw new Exception("Contraseña inválida.");
+			throw new Exception("Contraseña invalida.");
 		}
 
 		if (tipoEmpleado.equals("recepcionista")) {
