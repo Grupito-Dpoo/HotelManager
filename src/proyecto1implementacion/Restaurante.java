@@ -1,30 +1,63 @@
 package proyecto1implementacion;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import proyecto1implementacion.Alimento.tipoAlimento;
+
 
 /**
  *
  * @author Johan Bautista
  */
-public class Restaurante extends Servicio {
+public class Restaurante extends Servicio implements Serializable{
 
-    private ArrayList<Alimento> MenuRestaurante;
-    private ArrayList<Alimento> MenuHabitacion;
+    private ArrayList<Alimento> menu;
+    private ArrayList<Alimento> paraHabitacion;
+    private ArrayList<Alimento> paraRestaurante;
 
-    public ArrayList<Alimento> getMenuRestaurante() {
-        return MenuRestaurante;
+    public Restaurante() {
+        menu = new ArrayList<>();
+        paraHabitacion = new ArrayList<>();
+        paraRestaurante = new ArrayList<>();
     }
 
-    public void setMenuRestaurante(ArrayList<Alimento> MenuRestaurante) {
-        this.MenuRestaurante = MenuRestaurante;
-    }
+    public void CargarAlimentos(String archivo) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
 
-    public ArrayList<Alimento> getMenuHabitacion() {
-        return MenuHabitacion;
-    }
+            while ((linea = br.readLine()) != null) {
+                tipoAlimento tAlimento = null;
+                String[] datos = linea.split(";");
+                String tipo = datos[0];
+                String nombre = datos[1];
+                Float tarifa = Float.parseFloat(datos[2]);
+                boolean paraLlevar = Boolean.parseBoolean(datos[3]);
+                String horario = datos[4];
+                if (tipo.equals("Bebida")){
+                    tAlimento = tipoAlimento.BEBIDA;
+                }
+                else if(tipo.equals("Plato")){
+                    tAlimento = tipoAlimento.PLATO;
+                }
+                Alimento alimento = new Alimento(tAlimento, nombre, tarifa, paraLlevar, horario);
+                menu.add(alimento);
 
-    public void setMenuHabitacion(ArrayList<Alimento> MenuHabitacion) {
-        this.MenuHabitacion = MenuHabitacion;
+                if (paraLlevar) {
+                    paraHabitacion.add(alimento);
+                } else {
+                    paraRestaurante.add(alimento);
+                }
+            }
+
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
     }
 
 }
