@@ -1,12 +1,13 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Johan Bautista
  */
-public class Habitacion {
+public class Habitacion implements Serializable{
 
     private int Identificador;
     private int Capacidad;

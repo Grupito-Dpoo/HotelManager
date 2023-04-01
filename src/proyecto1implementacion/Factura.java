@@ -1,13 +1,15 @@
 package proyecto1implementacion;
 
 import proyecto1implementacion.Servicio.areaAsociada;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Johan Bautista
  */
-public class Factura{
+public class Factura implements Serializable{
 
     private static Integer FacturasExpedidas;
     private Consumo informacionConsumo;

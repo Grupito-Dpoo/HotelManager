@@ -3,7 +3,6 @@ package proyecto1implementacion;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import proyecto1implementacion.Alimento.tipoAlimento;
@@ -13,7 +12,7 @@ import proyecto1implementacion.Alimento.tipoAlimento;
  *
  * @author Johan Bautista
  */
-public class Restaurante extends Servicio implements Serializable{
+public class Restaurante extends Servicio{
 
     private ArrayList<Alimento> menu;
     private ArrayList<Alimento> paraHabitacion;

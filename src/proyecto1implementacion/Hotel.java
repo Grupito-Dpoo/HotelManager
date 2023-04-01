@@ -1,9 +1,12 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Hotel {
+import proyecto1implementacion.Servicio.areaAsociada;
+
+public class Hotel implements Serializable {
 
 	private String nombre;
 
@@ -30,6 +33,25 @@ public class Hotel {
 	public Huesped buscarHuesped(String nombreHuesped) {
 		return huespedes.get(nombreHuesped);
 	}
+
+	public void agregarHuesped(String nombreHuesped, Huesped nuevoHuesped) {
+		this.huespedes.put(nombreHuesped, nuevoHuesped);
+	}
+
+	public Consumo RegistrarConsumoHuesped(String Fecha, String nombreHuesped, areaAsociada areaAsociada,
+	float valor, boolean Pagado) {
+		
+		Huesped huesped = buscarHuesped(nombreHuesped);
+		if (huesped != null) {
+		Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
+		Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
+		huesped.agregarConsumo(nuevoConsumo.getIdentificador(), nuevoConsumo);
+		return nuevoConsumo;
+		}
+		else {
+			return null;
+		}
+    }
 
 	public void agregarReservacion(Reserva nuevaReservacion) {
 		this.reservaciones.put(nuevaReservacion.getIdentificador(), nuevaReservacion);

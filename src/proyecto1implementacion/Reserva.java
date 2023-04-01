@@ -3,10 +3,11 @@ package proyecto1implementacion;
 import proyecto1implementacion.Habitacion;
 import proyecto1implementacion.Huesped;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Reserva {
+public class Reserva implements Serializable{
 
     private Integer identificador;
     private ArrayList<Habitacion> habitaciones;

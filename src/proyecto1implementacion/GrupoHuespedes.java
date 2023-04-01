@@ -1,8 +1,9 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GrupoHuespedes {
+public class GrupoHuespedes implements Serializable{
     private Huesped huespedPrincipal;
     private ArrayList<Huesped> acompaniantes;
     private ArrayList<Habitacion> habitacionesAsignadas;

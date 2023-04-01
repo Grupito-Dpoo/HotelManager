@@ -4,8 +4,6 @@ import proyecto1implementacion.Servicio.areaAsociada;
 
 public class Empleado extends UsuarioSistema {
 
-	
-	
 	public Empleado(String login, String password, Hotel hotel) {
 		super(login, password, hotel);
 	}
@@ -22,11 +20,11 @@ public class Empleado extends UsuarioSistema {
 		return super.getHotel();
 	}
 	
-    private areaAsociada AreaAsociada;
 
-    private void RegistrarConsumoHuesped(String nombreHuesped) {
-        
+    private boolean RegistrarConsumoHuesped(String nombreHuesped, Consumo nuevoConsumo) {
+		return false;
     }
+	
     private void RegistrarPago(String nombreHuesped) {
     }
 
