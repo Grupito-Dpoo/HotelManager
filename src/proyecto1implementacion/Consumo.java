@@ -1,12 +1,14 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
+
 import proyecto1implementacion.Servicio.areaAsociada;
 
 /**
  *
  * @author Johan Bautista
  */
-public class Consumo {
+public class Consumo implements Serializable{
     private static Integer ConsumosExpedidos;
     private Integer Identificador;
     private String Fecha;
@@ -17,15 +19,16 @@ public class Consumo {
     private float valorTotal;
     private boolean Pagado;
 
-    public Consumo(String Fecha, areaAsociada AreaConsumo, Huesped Huesped, Habitacion Habitacion, float valor, float valorTotal, boolean Pagado) {
+    public Consumo(String Fecha, areaAsociada AreaConsumo, Huesped Huesped, 
+    Habitacion Habitacion, float valor, boolean Pagado) {
         this.Identificador = ConsumosExpedidos;
-        ConsumosExpedidos += 1;
+        Consumo.ConsumosExpedidos += 1;
         this.Fecha = Fecha;
         this.AreaConsumo = AreaConsumo;
         this.Huesped = Huesped;
         this.Habitacion = Habitacion;
         this.valor = valor;
-        this.valorTotal = valorTotal;
+        this.valorTotal = (float) (valor * 1.19);
         this.Pagado = Pagado;
     }
 

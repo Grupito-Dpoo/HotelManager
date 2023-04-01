@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
+
+import proyecto1implementacion.Servicio.areaAsociada;
 
 public class Aplicacion {
 
@@ -180,7 +183,96 @@ public class Aplicacion {
 	}
 
 	private void menuEmpleado() {
-	}
+
+		int opcion = 0;
+		boolean salir = false;
+		
+		while (!salir) {
+			System.out.println("------Menu Personal del hotel------");
+			System.out.println("Bienvenido, " + usuarioActual.getLogin());
+			System.out.println("Por favor seleccione una opcion:");
+			System.out.println("1. Registrar un nuevo consumo");
+			System.out.println("2. Registrar un pago");
+			System.out.println("3. Volver al menu anterior");
+		
+			opcion = Integer.parseInt(input("Seleccione una opcion"));
+			
+			switch (opcion) {
+				case 1:
+				areaAsociada area = null;
+				boolean Pagado = false;	
+				boolean salir2 = false;
+				boolean salir3 = false;
+				Scanner scanner = new Scanner(System.in);
+				int opcion2 = scanner.nextInt();
+				while(salir2 != true){		
+								
+					System.out.println("Seleccione el area de consumo asociada:");
+					System.out.println("1. SPA");
+					System.out.println("2. GUIA TURISTICO");
+					System.out.println("3. RESTAURANTE");
+
+					if (opcion2 == 1){
+						area = areaAsociada.SPA;
+						salir2 = true;
+					}
+					else if (opcion2 == 2){
+						area = areaAsociada.GUIATURISTICO;
+						salir2 = true;
+					}
+					else if (opcion2 == 3){
+						area = areaAsociada.RESTAURANTE;
+						salir2 = true;
+					}
+					else{
+						System.out.println("Opcion no disponible, por favor seleccione una opcion valida");
+					}}
+
+				while(salir3 != true){		
+							
+					System.out.println("¿El consumo ya fue pagado?");
+					System.out.println("1. Si, ya fue pagado");
+					System.out.println("2. No, queda registrado");
+					opcion2 = scanner.nextInt();
+
+					if (opcion2 == 1){
+						Pagado = true;
+						salir3 = true;
+					}
+					else if (opcion2 == 2){
+						salir3 = true;
+					}
+					else {
+						System.out.println("Seleccione una opcion valida");
+					}}
+
+					String Fecha = input("Ingrese la fecha del consumo");
+					String NombreHuesped = input("Ingrese el nombre del huesped");
+					float valor = Float.parseFloat(input("Ingrese el valor del consumo"));
+					
+					Consumo consumoRegistrado = hotel.RegistrarConsumoHuesped(Fecha, NombreHuesped, area, valor, Pagado);
+				
+					if (consumoRegistrado != null){
+						System.out.println("Consumo registrado satisfactoriamente con el id:" +consumoRegistrado.getIdentificador());
+					} 
+					else{
+						System.out.println("El consumo no se pudo registrar, intente nuevamente");
+					}
+					break;
+
+				case 2:
+					System.out.println("");
+					break;
+
+				case 3:
+					salir = true;
+					System.out.println("Hasta pronto! "+usuarioActual.getLogin());
+					break;
+					
+				default:
+					System.out.println("");
+					break;
+}}}
 
 	private void menuAdministrador() {
 		

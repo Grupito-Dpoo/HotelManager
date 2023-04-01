@@ -1,22 +1,24 @@
 package proyecto1implementacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Huesped {
+public class Huesped implements Serializable{
 
     private String nombre;
     private String documento;
     private Integer celular;
     private Habitacion habitacionAsociada;
     private GrupoHuespedes grupoAsociado;
-    private ArrayList<Consumo> consumosAsociados;
+    private HashMap<Integer,Consumo> consumosAsociados;
     private ArrayList<Factura> FacturasAsociadas;
 
     public Huesped(String nombre, String documento, Integer celular) {
         this.nombre = nombre;
         this.documento = documento;
         this.celular = celular;
-        this.consumosAsociados = new ArrayList<>();
+        this.consumosAsociados = new HashMap<>();
         this.FacturasAsociadas = new ArrayList<>();
     }
 
@@ -60,25 +62,20 @@ public class Huesped {
         this.grupoAsociado = grupoAsociado;
     }
 
-    public ArrayList<Consumo> getConsumosAsociados() {
+    public HashMap<Integer,Consumo> getConsumosAsociados() {
         return consumosAsociados;
     }
 
-    public void agregarConsumo(Consumo consumo) {
-        this.consumosAsociados.add(consumo);
+    public void agregarConsumo(Integer IdentificadorConsumo, Consumo consumo) {
+        this.consumosAsociados.put(IdentificadorConsumo, consumo);
     }
 
     public Consumo buscarConsumo(Integer identificador) {
-        for (Consumo c : consumosAsociados) {
-            if (c.getIdentificador().equals(identificador)) {
-                return c;
-            }
-        }
-        return null;
+        return consumosAsociados.get(identificador);
     }
 
-    public void eliminarConsumo(Consumo consumo) {
-        this.consumosAsociados.remove(consumo);
+    public void eliminarConsumo(Integer identificador) {
+        this.consumosAsociados.remove(identificador);
     }
 
     public ArrayList<Factura> getFacturasAsociadas() {
