@@ -22,18 +22,4 @@ public class EmpleadoRecepcion extends UsuarioSistema {
 		return super.getHotel();
 	}
 	
-	
-    private void CancelarReserva(Huesped Huesped) {
-    }
-
-    
-    private void VerInventarioHabitaciones() {
-    }
-
-    private void GenerarFacturas() {
-    }
-
-    private void Registro(ArrayList<HashMap<String, String>> DatosHuespedes) {
-    }
-
 }

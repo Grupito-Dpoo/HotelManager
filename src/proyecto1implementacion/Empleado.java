@@ -1,7 +1,5 @@
 package proyecto1implementacion;
 
-import proyecto1implementacion.Servicio.areaAsociada;
-
 public class Empleado extends UsuarioSistema {
 
 	public Empleado(String login, String password, Hotel hotel) {
@@ -20,12 +18,4 @@ public class Empleado extends UsuarioSistema {
 		return super.getHotel();
 	}
 	
-
-    private boolean RegistrarConsumoHuesped(String nombreHuesped, Consumo nuevoConsumo) {
-		return false;
-    }
-	
-    private void RegistrarPago(String nombreHuesped) {
-    }
-
 }
