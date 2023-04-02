@@ -39,19 +39,18 @@ public class Hotel implements Serializable {
 	}
 
 	public Consumo RegistrarConsumoHuesped(String Fecha, String nombreHuesped, areaAsociada areaAsociada,
-	float valor, boolean Pagado) {
-		
+			float valor, boolean Pagado) {
+
 		Huesped huesped = buscarHuesped(nombreHuesped);
 		if (huesped != null) {
-		Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
-		Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
-		huesped.agregarConsumo(nuevoConsumo.getIdentificador(), nuevoConsumo);
-		return nuevoConsumo;
-		}
-		else {
+			Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
+			Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
+			huesped.agregarConsumo(nuevoConsumo.getIdentificador(), nuevoConsumo);
+			return nuevoConsumo;
+		} else {
 			return null;
 		}
-    }
+	}
 
 	public void agregarReservacion(Reserva nuevaReservacion) {
 		this.reservaciones.put(nuevaReservacion.getIdentificador(), nuevaReservacion);
@@ -71,31 +70,31 @@ public class Hotel implements Serializable {
 		if (nuevoEmpleado != null) {
 			throw new Exception("Este nombre de usuario ya fue registrado.");
 		}
-		
+
 		if (login.isEmpty()) {
 			throw new Exception("Nombre de usuario invalido.");
 		}
-		
+
 		if (password.isEmpty()) {
 			throw new Exception("Contraseña invalida.");
 		}
 
 		if (tipoEmpleado.equals("recepcionista")) {
-			
+
 			nuevoEmpleado = new EmpleadoRecepcion(login, password, this);
 			empleados.put(login, nuevoEmpleado);
 
 		}
-		
+
 		else if (tipoEmpleado.equals("empleado")) {
 			nuevoEmpleado = new Empleado(login, password, this);
 			empleados.put(login, nuevoEmpleado);
 		}
-		
+
 		else {
-			
+
 			throw new Exception("El tipo de empleado no es válido.");
-			
+
 		}
 
 	}
@@ -127,18 +126,18 @@ public class Hotel implements Serializable {
 	public HashMap<String, UsuarioSistema> getEmpleados() {
 		return empleados;
 	}
-	
+
 	public UsuarioSistema getEmpleadoByLogin(String login) {
-		
+
 		return empleados.get(login);
-		
+
 	}
 
 	public void setEmpleados(HashMap<String, UsuarioSistema> empleados) {
 		this.empleados = empleados;
 	}
 
-	public HashMap<String,Servicio> getServicios() {
+	public HashMap<String, Servicio> getServicios() {
 		return servicios;
 	}
 
@@ -163,19 +162,18 @@ public class Hotel implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hotel{");
-        sb.append("nombre=").append(nombre);
-        sb.append(", habitacionesDisponibles=").append(habitacionesDisponibles);
-        sb.append(", totalHabitaciones=").append(totalHabitaciones);
-        sb.append(", huespedes=").append(huespedes);
-        sb.append(", reservaciones=").append(reservaciones);
-        sb.append(", empleados=").append(empleados);
-        sb.append(", servicios=").append(servicios);
-        sb.append('}');
-        return sb.toString();
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Hotel{");
+		sb.append("nombre=").append(nombre);
+		sb.append(", habitacionesDisponibles=").append(habitacionesDisponibles);
+		sb.append(", totalHabitaciones=").append(totalHabitaciones);
+		sb.append(", huespedes=").append(huespedes);
+		sb.append(", reservaciones=").append(reservaciones);
+		sb.append(", empleados=").append(empleados);
+		sb.append(", servicios=").append(servicios);
+		sb.append('}');
+		return sb.toString();
 	}
-
 
 }
