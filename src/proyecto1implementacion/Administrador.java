@@ -17,13 +17,4 @@ public class Administrador extends UsuarioSistema {
 	public Hotel getHotel() {
 		return super.getHotel();
 	}
-	
-	private void SubirArchivoHabitaciones(){
-    } 
-    private void SubirArchivoTipoCuarto(){
-    } 
-    private void SubirArchivoInfoServicios(){
-    } 
-    
-    
 }
