@@ -1,7 +1,5 @@
 package proyecto1implementacion;
 
-import proyecto1implementacion.Servicio.areaAsociada;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -9,13 +7,21 @@ import java.time.LocalDate;
  *
  * @author Johan Bautista
  */
-public class Factura implements Serializable{
+public class Factura implements Serializable {
 
     private static Integer FacturasExpedidas;
+    private Integer Identificador;
     private Consumo informacionConsumo;
     private Huesped Huesped;
     private LocalDate Fecha;
 
+    public Factura(Consumo informacionConsumo, Huesped Huesped, LocalDate Fecha) {
+        this.informacionConsumo = informacionConsumo;
+        this.Huesped = Huesped;
+        this.Fecha = Fecha;
+        this.Identificador = FacturasExpedidas;
+        FacturasExpedidas += 1;
+    }
 
     public Consumo getInformacionConsumo() {
         return informacionConsumo;
@@ -40,11 +46,13 @@ public class Factura implements Serializable{
     public void setFecha(LocalDate Fecha) {
         this.Fecha = Fecha;
     }
-    
-    
 
-    
+    public Integer getIdentificador() {
+        return Identificador;
+    }
 
-
+    public void setIdentificador(Integer Identificador) {
+        this.Identificador = Identificador;
+    }
 
 }

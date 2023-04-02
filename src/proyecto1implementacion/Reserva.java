@@ -1,8 +1,5 @@
 package proyecto1implementacion;
 
-import proyecto1implementacion.Habitacion;
-import proyecto1implementacion.Huesped;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
