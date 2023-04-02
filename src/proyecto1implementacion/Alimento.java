@@ -6,14 +6,14 @@ import java.io.Serializable;
  *
  * @author Johan Bautista
  */
-public class Alimento implements Serializable{
+public class Alimento implements Serializable {
 
     private tipoAlimento Tipo;
     private String Nombre;
     private float Tarifa;
     private boolean LugarDisponibilidad;
     private String Horario;
-    
+
     public enum tipoAlimento {
         BEBIDA, PLATO
     }
@@ -57,7 +57,7 @@ public class Alimento implements Serializable{
     public void setHorario(String Horario) {
         this.Horario = Horario;
     }
-    
+
     public Alimento(tipoAlimento Tipo, String Nombre, float Tarifa, boolean LugarDisponibilidad, String Horario) {
         this.Tipo = Tipo;
         this.Nombre = Nombre;
