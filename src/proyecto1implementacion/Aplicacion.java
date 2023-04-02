@@ -3,10 +3,14 @@ package proyecto1implementacion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,18 +34,36 @@ public class Aplicacion {
 		}
 		boolean continuar = true;
 
-		while (continuar && usuarioActual == null) {
+		while (continuar) {
 
 			mostrarMenu();
 			int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
 			if (opcion_seleccionada == 1) {
+				try {
+					Hotel NewHotel = CargarAplicacion();
+					hotel = NewHotel;
+
+				} catch (Exception e) {
+
+					System.err.println(e.getMessage());
+				}
+				}
+			else if (opcion_seleccionada == 2) {
+				try {
+					GuardarAplicacion(hotel);
+				} catch (Exception e) {
+
+					System.err.println(e.getMessage());
+				}
+				}
+			else if (opcion_seleccionada == 3) {
 				try {
 					registrarNuevoEmpleado();
 				} catch (Exception e) {
 
 					System.err.println(e.getMessage());
 				}
-			} else if (opcion_seleccionada == 2) {
+			} else if (opcion_seleccionada == 4) {
 				try {
 					iniciarSesionEmpleado();
 					menuUsuario();
@@ -49,7 +71,7 @@ public class Aplicacion {
 
 					System.err.println(e.getMessage());
 				}
-			} else if (opcion_seleccionada == 3) {
+			} else if (opcion_seleccionada == 5) {
 				System.out.println("\nSaliendo de la aplicacion ...");
 				continuar = false;
 			} else {
@@ -63,9 +85,11 @@ public class Aplicacion {
 		String nombre = hotel.getNombre();
 
 		System.out.println("Bienvenido al hotel " + nombre);
-		System.out.println("1. Registrar nuevo empleado");
-		System.out.println("2. Iniciar sesion empleado");
-		System.out.println("3. Salir");
+		System.out.println("1. Cargar aplicacion");
+		System.out.println("2. Guardar aplicacion");
+		System.out.println("3. Registrar nuevo empleado");
+		System.out.println("4. Iniciar sesion empleado");
+		System.out.println("5. Salir");
 	}
 
 	public void cargarUsuarios(File archivoUsuarios) throws Exception {
@@ -185,9 +209,9 @@ public class Aplicacion {
 	private void menuEmpleado() {
 
 		int opcion = 0;
-		boolean salir = false;
+		boolean salirmenu = false;
 		
-		while (!salir) {
+		while (!salirmenu) {
 			System.out.println("------Menu Personal del hotel------");
 			System.out.println("Bienvenido, " + usuarioActual.getLogin());
 			System.out.println("Por favor seleccione una opcion:");
@@ -265,7 +289,7 @@ public class Aplicacion {
 					break;
 
 				case 3:
-					salir = true;
+				salirmenu = true;
 					System.out.println("Hasta pronto! "+usuarioActual.getLogin());
 					break;
 					
@@ -324,12 +348,39 @@ public class Aplicacion {
 					alimento.isLugarDisponibilidad() ? "Habitacion" : "Restaurante", alimento.getHorario());
 			}
 		}
+		
+	public void GuardarAplicacion(Hotel HotelGuardar) throws IOException{
+		FileOutputStream fileOutputStream = new FileOutputStream("datosApp.txt");
+        ObjectOutputStream ObjectOutputStream = new ObjectOutputStream(fileOutputStream);
+        ObjectOutputStream.writeObject(HotelGuardar);
+        try {
+			ObjectOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public Hotel CargarAplicacion() throws IOException, ClassNotFoundException{
+		FileInputStream FileInputStream = new FileInputStream("datosApp.txt");
+        ObjectInputStream ObjectInputStream = new ObjectInputStream(FileInputStream); 
+        Hotel HotelEnFichero = (Hotel) ObjectInputStream.readObject();
+        ObjectInputStream.close();
+		return HotelEnFichero;
+		}
+
+	
 
 	public static void main(String[] args) {
 		Aplicacion app = new Aplicacion();
 		app.ejecutarOpcion();
 
 	}
+
+	
+
+
+
+
 
 	// Debería haber una opcion para cambiar de usuario o algo así?
 }
