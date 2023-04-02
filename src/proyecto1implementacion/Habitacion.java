@@ -7,22 +7,21 @@ import java.util.ArrayList;
  *
  * @author Johan Bautista
  */
-public class Habitacion implements Serializable{
+public class Habitacion implements Serializable {
 
     private int Identificador;
     private int Capacidad;
     private tipoHabitacion TipoHabitacion;
-    private boolean Balcon;
+    private int Balcon;
     private String Vista;
-    private boolean CocinaIntegrada;
+    private int CocinaIntegrada;
     private ArrayList<Cama> Camas;
     private Huesped HuespedActual;
     private String Ubicacion;
-    private static Integer habitacionesCreadas;
+    private static Integer habitacionesCreadas = 0;
 
-    
-    public Habitacion(tipoHabitacion TipoHabitacion, boolean Balcon,
-            String Vista, boolean CocinaIntegrada, ArrayList<Cama> Camas,
+    public Habitacion(tipoHabitacion TipoHabitacion, int Balcon,
+            String Vista, int CocinaIntegrada, ArrayList<Cama> Camas,
             String Ubicacion) {
         this.TipoHabitacion = TipoHabitacion;
         this.Balcon = Balcon;
@@ -32,9 +31,8 @@ public class Habitacion implements Serializable{
         this.Ubicacion = Ubicacion;
         this.Identificador = habitacionesCreadas;
         Habitacion.habitacionesCreadas += 1;
-        this.setCapacidad();
+        this.CalcularCapacidad();
     }
-
 
     public int getIdentificador() {
         return Identificador;
@@ -44,12 +42,16 @@ public class Habitacion implements Serializable{
         return Capacidad;
     }
 
-    public void setCapacidad() {
+    public void CalcularCapacidad() {
         Integer sumaCapacidades = 0;
-        for (Cama camita : this.Camas) {
-            sumaCapacidades += camita.getCapacidad();
+        if (this.Camas.isEmpty()) {
+            this.Capacidad = sumaCapacidades;
+        } else {
+            for (Cama camita : this.Camas) {
+                sumaCapacidades += camita.getCapacidad();
+            }
+            this.Capacidad = sumaCapacidades;
         }
-        this.Capacidad = sumaCapacidades;
     }
 
     public tipoHabitacion getTipoHabitacion() {
@@ -60,28 +62,12 @@ public class Habitacion implements Serializable{
         this.TipoHabitacion = TipoHabitacion;
     }
 
-    public boolean isBalcon() {
-        return Balcon;
-    }
-
-    public void setBalcon(boolean Balcon) {
-        this.Balcon = Balcon;
-    }
-
     public String getVista() {
         return Vista;
     }
 
     public void setVista(String Vista) {
         this.Vista = Vista;
-    }
-
-    public boolean isCocinaIntegrada() {
-        return CocinaIntegrada;
-    }
-
-    public void setCocinaIntegrada(boolean CocinaIntegrada) {
-        this.CocinaIntegrada = CocinaIntegrada;
     }
 
     public ArrayList<Cama> getCamas() {
@@ -110,6 +96,30 @@ public class Habitacion implements Serializable{
 
     public enum tipoHabitacion {
         ESTANDAR, SUITE, SUITEDOBLE
+    }
+
+    public void setIdentificador(int Identificador) {
+        this.Identificador = Identificador;
+    }
+
+    public void setCapacidad(int Capacidad) {
+        this.Capacidad = Capacidad;
+    }
+
+    public int getBalcon() {
+        return Balcon;
+    }
+
+    public void setBalcon(int Balcon) {
+        this.Balcon = Balcon;
+    }
+
+    public int getCocinaIntegrada() {
+        return CocinaIntegrada;
+    }
+
+    public void setCocinaIntegrada(int CocinaIntegrada) {
+        this.CocinaIntegrada = CocinaIntegrada;
     }
 
 }

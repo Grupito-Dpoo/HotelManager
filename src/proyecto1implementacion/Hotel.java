@@ -1,9 +1,13 @@
 package proyecto1implementacion;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import proyecto1implementacion.Habitacion.tipoHabitacion;
 import proyecto1implementacion.Servicio.areaAsociada;
 
 public class Hotel implements Serializable {
@@ -99,6 +103,42 @@ public class Hotel implements Serializable {
 
 	}
 
+	public HashMap<Integer, Habitacion> cargarHabitaciones(String nombreArchivo) {
+		HashMap<Integer, Habitacion> habitaciones = new HashMap<>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo));
+			String line;
+			Habitacion habitacionActual = null;
+			while ((line = reader.readLine()) != null) {
+				String[] partes = line.split(";");
+				if (partes[0].equals("Habitacion")) {
+					tipoHabitacion typeHabitacion = tipoHabitacion.ESTANDAR;
+					if (partes[1].equals("Suite")){
+						typeHabitacion = tipoHabitacion.SUITE;
+					} else if (partes[1].equals("Suite Doble")){
+						typeHabitacion = tipoHabitacion.SUITEDOBLE;
+					} 
+					int balcones = Integer.parseInt(partes[2]);
+					String vista = partes[3];
+					int cocinaIntegrada = Integer.parseInt(partes[4]);
+					String ubicacion = partes[5];
+					ArrayList<Cama> camas = new ArrayList<>();
+					habitacionActual = new Habitacion(typeHabitacion, balcones, vista, cocinaIntegrada, camas, ubicacion);
+					habitaciones.put(habitacionActual.getIdentificador(), habitacionActual);
+				} else if (partes[0].equals("Cama")) {
+					String tamanio = partes[1];
+					int capacidad = Integer.parseInt(partes[2]);
+					Cama cama = new Cama(tamanio, capacidad);
+					habitacionActual.getCamas().add(cama);
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return habitaciones;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

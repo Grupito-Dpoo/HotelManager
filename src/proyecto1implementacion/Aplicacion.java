@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -315,12 +316,33 @@ public class Aplicacion {
 
 			switch (opcion) {
 				case 1:
-					String Ruta = input("Escriba la ruta del archivo a subir");
-					Restaurante restaurante = (Restaurante) hotel.getServicios().get("Restaurante");
-					restaurante.CargarAlimentos(Ruta);
-					System.out.println("Se han subido los archivos de alimentos.");
-					System.out.println("MENU");
-					imprimirMenu(restaurante.getMenu());
+					int opcionadmin = 0;
+
+					while (opcionadmin != 4) {
+						System.out.println("----------------------------");
+						System.out.println("1. Cargar menú del restaurante");
+						System.out.println("2. Cargar inventario de habitaciones");
+						System.out.println("3. Cargar etc");
+						System.out.println("4. Salir");
+						opcionadmin = Integer.parseInt(input("Seleccione una opcion"));
+
+						switch (opcionadmin) {
+							case 1:
+								cargarMenu();
+								break;
+							case 2:
+								cargarInventarioHabitaciones();
+								break;
+							case 3:
+								break;
+							case 4:
+								System.out.println("Regresando al menu...");
+								break;
+							default:
+								System.out.println("Opción invalida, por favor seleccione una opción valida.");
+						}
+						
+					}
 					break;
 				case 2:
 					// Código para cambiar información de un plato
@@ -333,8 +355,57 @@ public class Aplicacion {
 				default:
 					System.out.println("Opcion no valida.");
 					break;
+
 			}
 		}
+	}
+
+	public void cargarMenu() {
+		String Ruta = input("Escriba la ruta del archivo a subir");
+		Restaurante restaurante = (Restaurante) hotel.getServicios().get(
+				"Restaurante");
+		restaurante.CargarAlimentos(Ruta);
+		System.out.println("Se está cargando el menú del restaurante...");
+		System.out.println("Se han subido los archivos de alimentos.");
+		System.out.println("MENU");
+		imprimirMenu(restaurante.getMenu());
+
+	}
+	public static void imprimirTablaHabitaciones(HashMap<Integer, Habitacion> habitaciones) {
+		System.out.printf("%-10s%-8s%-12s%-8s%-20s%-8s%-50s%-15s%-19s\n",
+				"Identificador", "Capacidad", "Tipo", "Balcones", "Vista", "Cocinas", "Camas", "Huesped", "Ubicacion");
+	
+		for (Habitacion habitacion : habitaciones.values()) {
+			String camasStr = "";
+			for (Cama cama : habitacion.getCamas()) {
+				camasStr += String.format("%d (%s, %d), ", cama.getIdentificador(), cama.getTamanio(), cama.getCapacidad());
+			}
+			if (camasStr.length() > 2) {
+				camasStr = camasStr.substring(0, camasStr.length() - 2);
+			}
+	
+			System.out.printf("%-10s%-8s%-12s%-8s%-20s%-8s%-50s%-15s%-19s\n",
+					habitacion.getIdentificador(), habitacion.getCapacidad(),
+					habitacion.getTipoHabitacion().toString(), habitacion.getBalcon(),
+					habitacion.getVista(), habitacion.getCocinaIntegrada(),
+					camasStr, habitacion.getHuespedActual() == null ? "" : habitacion.getHuespedActual().toString(),
+					habitacion.getUbicacion());
+		}
+	}
+	
+	public void cargarInventarioHabitaciones() {
+		String Ruta = input("Escriba la ruta del archivo a subir");
+		HashMap<Integer,Habitacion> Imprimir = hotel.cargarHabitaciones(Ruta);
+
+		System.out.println("Se está cargando el inventario de habitaciones...");
+		System.out.println("Se ha subido la informacion de las habitaciones.");
+		System.out.println("INFORMACIÓN CARGADA");
+		imprimirTablaHabitaciones(Imprimir);
+	}
+
+	public void cargarEtc() {
+		System.out.println("Se está cargando etc...");
+		// Aquí iría el código para cargar etc
 	}
 
 	public static void imprimirMenu(ArrayList<Alimento> alimentos) {

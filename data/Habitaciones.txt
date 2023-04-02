@@ -1,0 +1,51 @@
+Habitacion;Suite;2;Vista al mar;0;Piso 2
+Cama;200x200;2
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Suite Doble;1;Vista a la ciudad;1;Piso 5
+Cama;160x200;2
+Cama;160x200;2
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;0;Vista a la ciudad;2;Piso 3
+Cama;180x200;2
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;1;Vista al mar;1;Piso 1
+Cama;140x200;2
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Suite;2;Vista al mar;0;Piso 4
+Cama;200x200;2
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;1;Vista a la ciudad;0;Piso 2
+Cama;200x200;2
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;0;Vista al mar;3;Piso 1
+Cama;160x200;2
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Suite Doble;3;Vista a la ciudad;2;Piso 6
+Cama;200x200;2
+Cama;180x200;2
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;1;Vista al mar;1;Piso 3
+Cama;160x200;2
+Cama;90x200;1
+Cama;90x200;1
+Habitacion;Estándar;0;Vista a la ciudad;0;Piso 2
+Cama;140x200;2
+Cama;90x200;1
+Cama;90x200;1

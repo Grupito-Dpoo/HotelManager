@@ -6,30 +6,42 @@ import java.io.Serializable;
  *
  * @author Johan Bautista
  */
-public class Cama implements Serializable{
+public class Cama implements Serializable {
 
-    private int tamanio;
+    private int Identificador;
+    private String tamanio;
     private int capacidad;
-
-    public int getTamanio() {
-        return tamanio;
-    }
-
-    public void setTamanio(int tamanio) {
-        this.tamanio = tamanio;
-    }
+    private static int ContadorCamas;
 
     public int getCapacidad() {
         return capacidad;
     }
 
-    public Cama(int tamanio, int capacidad) {
+    public Cama(String tamanio, int capacidad) {
         this.tamanio = tamanio;
         this.capacidad = capacidad;
+        this.Identificador = ContadorCamas;
+        ContadorCamas += 1;
     }
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public int getIdentificador() {
+        return Identificador;
+    }
+
+    public void setIdentificador(int Identificador) {
+        this.Identificador = Identificador;
+    }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
     }
 
 }
