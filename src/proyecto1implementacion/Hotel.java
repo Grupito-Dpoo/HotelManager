@@ -162,4 +162,20 @@ public class Hotel implements Serializable {
 		this.reservaciones = reservaciones;
 	}
 
+	@Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hotel{");
+        sb.append("nombre=").append(nombre);
+        sb.append(", habitacionesDisponibles=").append(habitacionesDisponibles);
+        sb.append(", totalHabitaciones=").append(totalHabitaciones);
+        sb.append(", huespedes=").append(huespedes);
+        sb.append(", reservaciones=").append(reservaciones);
+        sb.append(", empleados=").append(empleados);
+        sb.append(", servicios=").append(servicios);
+        sb.append('}');
+        return sb.toString();
+	}
+
+
 }

@@ -40,19 +40,22 @@ public class Aplicacion {
 			int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
 			if (opcion_seleccionada == 1) {
 				try {
+				
 					Hotel NewHotel = CargarAplicacion();
 					hotel = NewHotel;
+					System.out.println("Informacion de la seccion anterior cargado correctamente");
+					System.out.println(hotel.toString());
+					System.out.println(hotel);
 
 				} catch (Exception e) {
-
 					System.err.println(e.getMessage());
-				}
-				}
+				}}
+
 			else if (opcion_seleccionada == 2) {
 				try {
 					GuardarAplicacion(hotel);
+					System.out.println("Informacion guardada correctamente");
 				} catch (Exception e) {
-
 					System.err.println(e.getMessage());
 				}
 				}
