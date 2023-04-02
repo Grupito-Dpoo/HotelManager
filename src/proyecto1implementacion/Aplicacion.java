@@ -372,7 +372,7 @@ public class Aplicacion {
 
 	}
 	public static void imprimirTablaHabitaciones(HashMap<Integer, Habitacion> habitaciones) {
-		System.out.printf("%-10s%-8s%-12s%-8s%-20s%-8s%-50s%-15s%-19s\n",
+		System.out.printf("%-14s%-10s%-18s%-10s%-18s%-10s%-50s%-20s%-20s\n",
 				"Identificador", "Capacidad", "Tipo", "Balcones", "Vista", "Cocinas", "Camas", "Huesped", "Ubicacion");
 	
 		for (Habitacion habitacion : habitaciones.values()) {
@@ -384,7 +384,7 @@ public class Aplicacion {
 				camasStr = camasStr.substring(0, camasStr.length() - 2);
 			}
 	
-			System.out.printf("%-10s%-8s%-12s%-8s%-20s%-8s%-50s%-15s%-19s\n",
+			System.out.printf("%-14s%-10s%-18s%-10s%-18s%-10s%-50s%-20s%-20s\n",
 					habitacion.getIdentificador(), habitacion.getCapacidad(),
 					habitacion.getTipoHabitacion().toString(), habitacion.getBalcon(),
 					habitacion.getVista(), habitacion.getCocinaIntegrada(),
