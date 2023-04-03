@@ -29,7 +29,7 @@ public class Hotel implements Serializable {
 		this.reservaciones = new HashMap<>();
 		this.empleados = new HashMap<>();
 		this.servicios = new HashMap<>();
-		Restaurante restaurante = new Restaurante();
+		Restaurante restaurante = new Restaurante("Restaurante");
 		this.servicios.put("Restaurante", restaurante);
 
 	}
@@ -104,6 +104,14 @@ public class Hotel implements Serializable {
 
 		}
 
+	}
+
+	public void modificarHabitacion(Habitacion habActual, tipoHabitacion typeHabitacion, int balcones, String vista,
+			int cocinaIntegrada, String ubicacion) {
+		ArrayList<Cama> Camas = habActual.getCamas();
+		Habitacion nuevaHab = new Habitacion(typeHabitacion, balcones,
+				vista, cocinaIntegrada, Camas, ubicacion);
+		habActual = nuevaHab;
 	}
 
 	public void cargarHabitaciones(String nombreArchivo) {

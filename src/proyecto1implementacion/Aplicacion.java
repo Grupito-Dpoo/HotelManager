@@ -266,11 +266,11 @@ public class Aplicacion {
 				Integer numHabitaciones = Integer.parseInt(input("Número de habitaciones requeridas"));
 				String fechaInicial = input("Fecha inicial");
 				String fechaFinal = input("Fecha final");
-				
+
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate finicial = LocalDate.parse(fechaInicial, formatter);
 				LocalDate ffinal = LocalDate.parse(fechaFinal, formatter);
-				
+
 				Map<Integer, Habitacion> habitaciones = new HashMap<>();
 				Map<Integer, Integer> habitacionesHuespedes = new HashMap<>();
 
@@ -322,22 +322,22 @@ public class Aplicacion {
 				}
 
 				Huesped huespedPrincipal = new Huesped(nombre, doc, celular, email);
-				
+
 				System.out.println("Habitaciones\n");
 
 				for (Integer identificador : habitaciones.keySet()) {
 					System.out.println("ID: " + identificador + " " + habitacionesHuespedes.get(identificador) + "/"
 							+ habitaciones.get(identificador).getCapacidad() + "\n");
-					
+
 				}
 				Integer idHab = Integer.parseInt(input("Escriba el ID de la habitacion para " + nombre));
-				if(habitaciones.get(idHab) == null) {
+				if (habitaciones.get(idHab) == null) {
 					System.out.println("La habitación no existe");
 				}
-				
+
 				huespedPrincipal.setHabitacionAsociada(habitaciones.get(idHab));
-				habitacionesHuespedes.put(idHab,1);
-				
+				habitacionesHuespedes.put(idHab, 1);
+
 				GrupoHuespedes grupo = new GrupoHuespedes(huespedPrincipal);
 
 				for (int i = 0; i < huespedes; i++) {
@@ -352,28 +352,30 @@ public class Aplicacion {
 					for (Integer identificador : habitaciones.keySet()) {
 						System.out.println("ID: " + identificador + " " + habitacionesHuespedes.get(identificador) + "/"
 								+ habitaciones.get(identificador).getCapacidad() + "\n");
-						
+
 					}
 					idHab = Integer.parseInt(input("Escriba el ID de la habitacion para " + nombre));
-					
-					if(habitaciones.get(idHab)!= null && habitacionesHuespedes.get(idHab) == habitaciones.get(idHab).getCapacidad()) {
+
+					if (habitaciones.get(idHab) != null
+							&& habitacionesHuespedes.get(idHab) == habitaciones.get(idHab).getCapacidad()) {
 						System.out.println("No se pueden agregar más huéspedes a ésta habitación.");
 						error = true;
 						break;
 					}
 					habitacionesHuespedes.put(idHab, habitacionesHuespedes.get(idHab) + 1);
-					
+
 					Huesped huesped = new Huesped(nombre, doc, celular, email);
 					huesped.setHabitacionAsociada(habitaciones.get(idHab));
-					
+
 					grupo.agregarAcompaniante(huesped);
 				}
-				
+
 				grupo.setHabitacionesAsignadas(new ArrayList<Habitacion>(habitaciones.values()));
-				
-				Reserva reserva = new Reserva(new ArrayList<Habitacion>(habitaciones.values()), finicial, ffinal, huespedPrincipal, huespedes);
+
+				Reserva reserva = new Reserva(new ArrayList<Habitacion>(habitaciones.values()), finicial, ffinal,
+						huespedPrincipal, huespedes);
 				hotel.agregarReservacion(reserva);
-				
+
 				System.out.println("Reserva agregada exitosamente");
 				break;
 
@@ -601,32 +603,24 @@ public class Aplicacion {
 			case 2:
 				int opcionadmin2 = 0;
 
-				while (opcionadmin2 != 4) {
-					System.out.println("----------------------------");
-					System.out.println("1. Modificar plato individual");
-					System.out.println("2. Modificar una habitacion individual");
-					System.out.println("3. Modificar tarifa por tipo de habitacion");
-					System.out.println("4. Salir");
-					opcionadmin2 = Integer.parseInt(input("Seleccione una opcion"));
-
-					switch (opcionadmin2) {
-					case 1:
-						modificarAlimentoPrint();
-						break;
-					case 2:
-						cargarInventarioHabitaciones();
-						break;
-					case 3:
-						break;
-					case 4:
-						System.out.println("Regresando al menu...");
-						break;
-					default:
-						System.out.println("Opción invalida, por favor seleccione una opción valida.");
-						System.out.println("Se ha cambiado la informacion de un plato.");
-						break;
-					}
+				switch (opcionadmin2) {
+				case 1:
+					modificarAlimentoPrint();
+					break;
+				case 2:
+					modificarHabitacionPrint();
+					break;
+				case 3:
+					modificarTarifaPrint();
+					break;
+				case 4:
+					System.out.println("Regresando al menu...");
+					break;
+				default:
+					System.out.println("Opción invalida, por favor seleccione una opción valida.");
+					break;
 				}
+
 			case 3:
 				salir = true;
 				System.out.println("Hasta pronto! " + usuarioActual.getLogin());
@@ -634,8 +628,79 @@ public class Aplicacion {
 			default:
 				System.out.println("Opcion no valida.");
 				break;
-
 			}
+		}
+
+	}
+
+	private void modificarTarifaPrint() {
+
+		try {
+
+			boolean salir = false;
+			tipoHabitacion modificar = null;
+			while (!salir) {
+				System.out.println("1. Tarifa de las habitaciones ESTANDAR");
+				System.out.println("2. Tarifa de las habitaciones SUITE");
+				System.out.println("3. Tarifa de las habitaciones SUITE DOBLE");
+				int opcion = Integer.parseInt(input("Seleccione el tipo habitacion para cambiar su tarifa"));
+
+				if (opcion == 1) {
+					modificar = tipoHabitacion.ESTANDAR;
+					salir = true;
+				} else if (opcion == 2) {
+					modificar = tipoHabitacion.SUITE;
+					salir = true;
+				} else if (opcion == 3) {
+					modificar = tipoHabitacion.SUITEDOBLE;
+					salir = true;
+				} else {
+					System.out.println("Opcion invalida, seleccione una opcion valida");
+				}
+			}
+			float NuevaTarifa = Float.parseFloat(input("Ingrese la nueva tarifa para el tipo " + modificar));
+			Habitacion.cambiarTarifaTipoHabitacion(modificar, NuevaTarifa);
+			System.out.println("Tarifa cambiada correctamente");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
+
+	private void modificarHabitacionPrint() {
+		try {
+			int Id = Integer.parseInt(input("Ingrese el Identificador de la habitacion a modificar"));
+			Habitacion habitacionModificar = hotel.buscarHabitacion(Id);
+			boolean salir = false;
+			tipoHabitacion modificar = null;
+			while (!salir) {
+				System.out.println("1. ESTANDAR");
+				System.out.println("2. SUITE");
+				System.out.println("3. SUITE DOBLE");
+				int opcion = Integer.parseInt(input("Seleccione el nuevo tipo de habitacion"));
+
+				if (opcion == 1) {
+					modificar = tipoHabitacion.ESTANDAR;
+					salir = true;
+				} else if (opcion == 2) {
+					modificar = tipoHabitacion.SUITE;
+					salir = true;
+				} else if (opcion == 3) {
+					modificar = tipoHabitacion.SUITEDOBLE;
+					salir = true;
+				} else {
+					System.out.println("Opcion invalida, seleccione una opcion valida");
+				}
+			}
+			int balcones = Integer.parseInt(input("Ingrese el numero de balcones de la habitacion"));
+			String vista = input("Ingrese la vista de la habitacion");
+			int cocinaIntegrada = Integer.parseInt(input("Ingrese el numero de concinas Integrales"));
+			String ubi = input("Ingrese la ubicacion de la habitacion");
+			hotel.modificarHabitacion(habitacionModificar, modificar, balcones, vista, cocinaIntegrada, ubi);
+			System.out.println("Habitacion actualizada correctamente");
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 

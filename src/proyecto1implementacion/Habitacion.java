@@ -156,7 +156,8 @@ public class Habitacion implements Serializable {
         Tarifas = tarifas;
     }
 
-    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, Double NuevaTarifa) {
+    public static void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, double NuevaTarifa) {
+
         Habitacion.Tarifas.put(tipoHabitacion, NuevaTarifa);
     }
 
