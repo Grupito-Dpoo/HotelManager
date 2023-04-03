@@ -2,6 +2,7 @@ package proyecto1implementacion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -19,6 +20,13 @@ public class Habitacion implements Serializable {
     private Huesped HuespedActual;
     private String Ubicacion;
     private static Integer habitacionesCreadas = 0;
+    
+    private static HashMap<tipoHabitacion,Float> Tarifas = new HashMap<tipoHabitacion, Float>() {{
+        put(tipoHabitacion.SUITE, 0.0f);
+        put(tipoHabitacion.SUITEDOBLE, 0.0f);
+        put(tipoHabitacion.ESTANDAR, 0.0f);
+    }};
+
 
     public Habitacion(tipoHabitacion TipoHabitacion, int Balcon,
             String Vista, int CocinaIntegrada, ArrayList<Cama> Camas,
@@ -120,6 +128,18 @@ public class Habitacion implements Serializable {
 
     public void setCocinaIntegrada(int CocinaIntegrada) {
         this.CocinaIntegrada = CocinaIntegrada;
+    }
+
+    public HashMap<tipoHabitacion, Float> getTarifas() {
+        return Tarifas;
+    }
+
+    public void setTarifas(HashMap<tipoHabitacion, Float> tarifas) {
+        Tarifas = tarifas;
+    }
+
+    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, float NuevaTarifa){
+        Habitacion.Tarifas.put(tipoHabitacion, NuevaTarifa);
     }
 
 }

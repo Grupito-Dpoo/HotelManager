@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import proyecto1implementacion.Alimento.tipoAlimento;
 import proyecto1implementacion.Servicio.areaAsociada;
 
 public class Aplicacion {
@@ -341,13 +342,38 @@ public class Aplicacion {
 							default:
 								System.out.println("Opción invalida, por favor seleccione una opción valida.");
 						}
-						
+
 					}
 					break;
 				case 2:
-					// Código para cambiar información de un plato
-					System.out.println("Se ha cambiado la informacion de un plato.");
-					break;
+					int opcionadmin2 = 0;
+
+					while (opcionadmin2 != 4) {
+						System.out.println("----------------------------");
+						System.out.println("1. Modificar plato individual");
+						System.out.println("2. Modificar una habitacion individual");
+						System.out.println("3. Modificar tarifa por tipo de habitacion");
+						System.out.println("4. Salir");
+						opcionadmin2 = Integer.parseInt(input("Seleccione una opcion"));
+
+						switch (opcionadmin2) {
+							case 1:
+								modificarAlimentoPrint();
+								break;
+							case 2:
+								cargarInventarioHabitaciones();
+								break;
+							case 3:
+								break;
+							case 4:
+								System.out.println("Regresando al menu...");
+								break;
+							default:
+								System.out.println("Opción invalida, por favor seleccione una opción valida.");
+								System.out.println("Se ha cambiado la informacion de un plato.");
+								break;
+						}
+					}
 				case 3:
 					salir = true;
 					System.out.println("Hasta pronto! " + usuarioActual.getLogin());
@@ -357,6 +383,52 @@ public class Aplicacion {
 					break;
 
 			}
+		}
+	}
+
+	public void modificarAlimentoPrint(){
+		imprimirMenu(((Restaurante) hotel.getServicios().get("Restaurante")).getMenu());
+		String id = input("Ingrese el Id del plato a modificar");
+		Alimento nuevoAlimento = ((Restaurante) hotel.getServicios().get("Restaurante"))
+				.buscarAlimento(id);
+		if (nuevoAlimento != null) {
+			System.out.println("1. Bebida");
+			System.out.println("2. Plato");
+			String tipo = input("Seleccione el nuevo tipo del plato");
+			tipoAlimento tAlimento = tipoAlimento.PLATO;
+			if (Integer.parseInt(tipo) == 1) {
+				tAlimento = tipoAlimento.BEBIDA;
+			} else if (Integer.parseInt(tipo) == 2) {
+				tAlimento = tipoAlimento.PLATO;
+			} else {
+				System.out
+						.println("Opción incorrecta, el alimento quedo como Plato por defecto");
+			}
+			String nombreString = input("Nuevo nombre del alimento");
+			float NuevaTarifa = Float.parseFloat(input("Nueva tarifa del alimento"));
+			System.out.println("1. Para restaurante");
+			System.out.println("2. Para habitacion");
+			String paraHabitacion = input("Seleccione la disponibilidad del plato");
+			Boolean paraHabitacionBoolean = false;
+			if (Integer.parseInt(paraHabitacion) == 1) {
+				paraHabitacionBoolean = false;
+			} else if (Integer.parseInt(paraHabitacion) == 2) {
+				paraHabitacionBoolean = true;
+			} else {
+				System.out
+						.println("Opción incorrecta, el alimento para restaurante por defecto");
+			}
+			System.out.println("1. Desayuno");
+			System.out.println("2. Almuerzo");
+			System.out.println("2. Cena");
+			String Horario = input("Seleccione el horario de alimento");
+			((Restaurante) hotel.getServicios().get("Restaurante")).modificarAlimento(
+					nuevoAlimento,
+					tAlimento, nombreString, NuevaTarifa, paraHabitacionBoolean, Horario);
+			System.out.println("Alimento modificado satisfactoriamente");
+			System.out.println(nuevoAlimento);
+		} else {
+			System.out.println("Alimento no encontrado");
 		}
 	}
 
@@ -371,19 +443,21 @@ public class Aplicacion {
 		imprimirMenu(restaurante.getMenu());
 
 	}
+
 	public static void imprimirTablaHabitaciones(HashMap<Integer, Habitacion> habitaciones) {
 		System.out.printf("%-14s%-10s%-18s%-10s%-18s%-10s%-50s%-20s%-20s\n",
 				"Identificador", "Capacidad", "Tipo", "Balcones", "Vista", "Cocinas", "Camas", "Huesped", "Ubicacion");
-	
+
 		for (Habitacion habitacion : habitaciones.values()) {
 			String camasStr = "";
 			for (Cama cama : habitacion.getCamas()) {
-				camasStr += String.format("%d (%s, %d), ", cama.getIdentificador(), cama.getTamanio(), cama.getCapacidad());
+				camasStr += String.format("%d (%s, %d), ", cama.getIdentificador(), cama.getTamanio(),
+						cama.getCapacidad());
 			}
 			if (camasStr.length() > 2) {
 				camasStr = camasStr.substring(0, camasStr.length() - 2);
 			}
-	
+
 			System.out.printf("%-14s%-10s%-18s%-10s%-18s%-10s%-50s%-20s%-20s\n",
 					habitacion.getIdentificador(), habitacion.getCapacidad(),
 					habitacion.getTipoHabitacion().toString(), habitacion.getBalcon(),
@@ -392,15 +466,15 @@ public class Aplicacion {
 					habitacion.getUbicacion());
 		}
 	}
-	
+
 	public void cargarInventarioHabitaciones() {
 		String Ruta = input("Escriba la ruta del archivo a subir");
-		HashMap<Integer,Habitacion> Imprimir = hotel.cargarHabitaciones(Ruta);
+		hotel.cargarHabitaciones(Ruta);
 
 		System.out.println("Se está cargando el inventario de habitaciones...");
 		System.out.println("Se ha subido la informacion de las habitaciones.");
-		System.out.println("INFORMACIÓN CARGADA");
-		imprimirTablaHabitaciones(Imprimir);
+		System.out.println("INFORMACION DEL TOTAL DE HABITACIONES:");
+		imprimirTablaHabitaciones(hotel.getTotalHabitaciones());
 	}
 
 	public void cargarEtc() {
@@ -410,12 +484,12 @@ public class Aplicacion {
 
 	public static void imprimirMenu(ArrayList<Alimento> alimentos) {
 
-		System.out.printf("%-15s %-20s %-10s %-20s %-15s\n",
-				"Tipo", "Nombre", "Tarifa", "LugarDisponibilidad", "Horario");
-		System.out.println("--------------------------------------------------------------");
+		System.out.printf("%-15s %-10s %-20s %-10s %-15s %-10s\n",
+				"Tipo", "Id", "Nombre", "Tarifa", "LugarDisponibilidad", "Horario");
+		System.out.println("-----------------------------------------------------------------------------");
 		for (Alimento alimento : alimentos) {
-			System.out.printf("%-15s %-20s %-10.2f %-20s %-15s\n",
-					alimento.getTipo(), alimento.getNombre(), alimento.getTarifa(),
+			System.out.printf("%-15s %-10s %-20s %-10s %-15s %-10s\n",
+					alimento.getTipo(), alimento.getIdentificador(), alimento.getNombre(), alimento.getTarifa(),
 					alimento.isLugarDisponibilidad() ? "Habitacion" : "Restaurante", alimento.getHorario());
 		}
 	}

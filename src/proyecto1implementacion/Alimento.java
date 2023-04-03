@@ -9,10 +9,20 @@ import java.io.Serializable;
 public class Alimento implements Serializable {
 
     private tipoAlimento Tipo;
+    private int Identificador;
+    private static int AlimentosCreados = 0;
     private String Nombre;
     private float Tarifa;
     private boolean LugarDisponibilidad;
     private String Horario;
+
+    public int getIdentificador() {
+        return Identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        Identificador = identificador;
+    }
 
     public enum tipoAlimento {
         BEBIDA, PLATO
@@ -64,6 +74,12 @@ public class Alimento implements Serializable {
         this.Tarifa = Tarifa;
         this.LugarDisponibilidad = LugarDisponibilidad;
         this.Horario = Horario;
+        this.Identificador = Alimento.AlimentosCreados;
+        Alimento.AlimentosCreados += 1;
     }
+
+    
+
+
 
 }

@@ -7,12 +7,11 @@ import java.util.ArrayList;
 
 import proyecto1implementacion.Alimento.tipoAlimento;
 
-
 /**
  *
  * @author Johan Bautista
  */
-public class Restaurante extends Servicio{
+public class Restaurante extends Servicio {
 
     private ArrayList<Alimento> menu;
     private ArrayList<Alimento> paraHabitacion;
@@ -25,6 +24,10 @@ public class Restaurante extends Servicio{
     }
 
     public void CargarAlimentos(String archivo) {
+        ArrayList<Alimento> menuInterno = new ArrayList<>();
+        ArrayList<Alimento> paraHabitacionInterno = new ArrayList<>();
+        ArrayList<Alimento> paraRestauranteInterno = new ArrayList<>();
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(archivo));
             String linea;
@@ -37,27 +40,56 @@ public class Restaurante extends Servicio{
                 Float tarifa = Float.parseFloat(datos[2]);
                 boolean paraLlevar = Boolean.parseBoolean(datos[3]);
                 String horario = datos[4];
-                if (tipo.equals("Bebida")){
+                if (tipo.equals("Bebida")) {
                     tAlimento = tipoAlimento.BEBIDA;
-                }
-                else if(tipo.equals("Plato")){
+                } else if (tipo.equals("Plato")) {
                     tAlimento = tipoAlimento.PLATO;
                 }
                 Alimento alimento = new Alimento(tAlimento, nombre, tarifa, paraLlevar, horario);
-                menu.add(alimento);
+                menuInterno.add(alimento);
 
                 if (paraLlevar) {
-                    paraHabitacion.add(alimento);
+                    paraHabitacionInterno.add(alimento);
                 } else {
-                    paraRestaurante.add(alimento);
+                    paraRestauranteInterno.add(alimento);
                 }
             }
+
+            this.setMenu(menuInterno);
+            this.setParaHabitacion(paraHabitacionInterno);
+            this.setParaRestaurante(paraRestauranteInterno);
 
             br.close();
         } catch (IOException e) {
             System.out.println("Error al leer el archivo: " + e.getMessage());
         }
     }
+
+    public Alimento buscarAlimento(String id) {
+        for (Alimento alimento : this.menu) {
+            if (alimento.getIdentificador() == Integer.parseInt(id)) {
+                return alimento;
+            }
+        }
+        return null;
+    }
+
+    public void modificarAlimento(Alimento alimento, tipoAlimento Tipo, String Nombre, float Tarifa,
+            boolean LugarDisponibilidad, String Horario) {
+        alimento = new Alimento(Tipo, Nombre, Tarifa, LugarDisponibilidad, Horario);
+    }
+
+    public void crearNuevoAlimento(tipoAlimento Tipo, String Nombre, float Tarifa,
+            boolean LugarDisponibilidad, String Horario) {
+        Alimento alimento = new Alimento(Tipo, Nombre, Tarifa, LugarDisponibilidad, Horario);
+        this.menu.add(alimento);
+        if (LugarDisponibilidad) {
+            this.paraHabitacion.add(alimento);
+        } else {
+            this.paraRestaurante.add(alimento);
+        }
+    }
+
     public ArrayList<Alimento> getMenu() {
         return menu;
     }
