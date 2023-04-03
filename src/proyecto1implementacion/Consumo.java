@@ -1,13 +1,13 @@
 package proyecto1implementacion;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 import proyecto1implementacion.Servicio.areaAsociada;
 
-/**
- *
- * @author Johan Bautista
- */
 public class Consumo implements Serializable{
     private static Integer ConsumosExpedidos;
     private Integer Identificador;
@@ -15,12 +15,12 @@ public class Consumo implements Serializable{
     private areaAsociada AreaConsumo;
     private Huesped Huesped;
     private Habitacion Habitacion;
-    private float valor;
-    private float valorTotal;
+    private double valor;
+    private double valorTotal;
     private boolean Pagado;
 
     public Consumo(String Fecha, areaAsociada AreaConsumo, Huesped Huesped, 
-    Habitacion Habitacion, float valor, boolean Pagado) {
+    Habitacion Habitacion, double valor, boolean Pagado) {
         this.Identificador = ConsumosExpedidos;
         Consumo.ConsumosExpedidos += 1;
         this.Fecha = Fecha;
@@ -28,7 +28,7 @@ public class Consumo implements Serializable{
         this.Huesped = Huesped;
         this.Habitacion = Habitacion;
         this.valor = valor;
-        this.valorTotal = (float) (valor * 1.19);
+        this.valorTotal = valor * 1.19;
         this.Pagado = Pagado;
     }
 
@@ -72,19 +72,19 @@ public class Consumo implements Serializable{
         this.Habitacion = Habitacion;
     }
 
-    public float getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
-    public float getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(float valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
@@ -95,5 +95,18 @@ public class Consumo implements Serializable{
     public void setPagado(boolean Pagado) {
         this.Pagado = Pagado;
     }
+    
+    public String generarTextoFactura() {
+		
+		String textoFactura = Identificador + 
+				"\t" + Fecha + 
+				"\t" + Huesped.getNombre() + 
+				"\t" + AreaConsumo + 
+				"\t$" + valor + 
+				"\t$" + valor * 0.19 +
+				"\t$" + valorTotal;
+		
+		return textoFactura;
+	}
 
 }

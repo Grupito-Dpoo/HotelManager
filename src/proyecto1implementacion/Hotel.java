@@ -43,17 +43,20 @@ public class Hotel implements Serializable {
 	}
 
 	public Consumo RegistrarConsumoHuesped(String Fecha, String nombreHuesped, areaAsociada areaAsociada,
-			float valor, boolean Pagado) {
+			double valor, boolean Pagado) throws Exception {
 
 		Huesped huesped = buscarHuesped(nombreHuesped);
-		if (huesped != null) {
-			Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
-			Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
-			huesped.agregarConsumo(nuevoConsumo.getIdentificador(), nuevoConsumo);
-			return nuevoConsumo;
-		} else {
-			return null;
+		if (huesped == null) {
+			throw new Exception("No existe huesped asociado al nombre");
 		}
+		
+		Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
+		Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
+		huesped.agregarConsumo(nuevoConsumo);
+		GrupoHuespedes grupo = huesped.getGrupoAsociado();
+		grupo.agregarConsumo(nuevoConsumo);
+		
+		return nuevoConsumo;
 	}
 
 	public void agregarReservacion(Reserva nuevaReservacion) {
@@ -210,8 +213,8 @@ public class Hotel implements Serializable {
 		sb.append(", totalHabitaciones=").append(totalHabitaciones);
 		sb.append(", huespedes=").append(huespedes);
 		sb.append(", reservaciones=").append(reservaciones);
-		sb.append(", empleados=").append(empleados);
-		sb.append(", servicios=").append(servicios);
+		sb.append(", empleados=").append(empleados.keySet());
+		sb.append(", servicios=").append(servicios.keySet());
 		sb.append('}');
 		return sb.toString();
 	}

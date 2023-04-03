@@ -24,7 +24,6 @@ public class Reserva implements Serializable{
         this.cantidadPersonas = cantidadPersonas;
     }
 
-
     // Verificar fecha de cancelación
     public String verificarFechaCancelar() {
         LocalDate fechaActual = LocalDate.now();

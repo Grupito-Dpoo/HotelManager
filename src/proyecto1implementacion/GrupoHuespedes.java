@@ -56,7 +56,4 @@ public class GrupoHuespedes implements Serializable{
         this.consumosAsociados.add(consumo);
     }
 
-    public void eliminarConsumo(Consumo consumo) {
-        this.consumosAsociados.remove(consumo);
-    }
 }
