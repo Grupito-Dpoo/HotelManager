@@ -7,14 +7,16 @@ public class Huesped implements Serializable{
 
     private String nombre;
     private String documento;
+    private String correo;
     private Integer celular;
     private Habitacion habitacionAsociada;
     private GrupoHuespedes grupoAsociado;
     private ArrayList<Consumo> consumosAsociados;
 
-    public Huesped(String nombre, String documento, Integer celular) {
+    public Huesped(String nombre, String documento, Integer celular, String correo) {
         this.nombre = nombre;
         this.documento = documento;
+        this.correo = correo;
         this.celular = celular;
         this.consumosAsociados = new ArrayList<>();
 
@@ -71,5 +73,13 @@ public class Huesped implements Serializable{
     public Consumo buscarConsumo(Integer identificador) {
         return consumosAsociados.get(identificador);
     }
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
 }

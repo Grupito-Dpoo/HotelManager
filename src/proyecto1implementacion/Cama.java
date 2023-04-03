@@ -2,10 +2,6 @@ package proyecto1implementacion;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Johan Bautista
- */
 public class Cama implements Serializable {
 
     private int Identificador;

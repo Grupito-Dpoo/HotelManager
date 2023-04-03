@@ -42,20 +42,20 @@ public class Hotel implements Serializable {
 		this.huespedes.put(nombreHuesped, nuevoHuesped);
 	}
 
-	public Consumo RegistrarConsumoHuesped(String Fecha, String nombreHuesped, areaAsociada areaAsociada,
-			double valor, boolean Pagado) throws Exception {
+	public Consumo RegistrarConsumoHuesped(String Fecha, String nombreHuesped, areaAsociada areaAsociada, double valor,
+			boolean Pagado) throws Exception {
 
 		Huesped huesped = buscarHuesped(nombreHuesped);
 		if (huesped == null) {
 			throw new Exception("No existe huesped asociado al nombre");
 		}
-		
+
 		Habitacion habitacionHuesped = huesped.getHabitacionAsociada();
 		Consumo nuevoConsumo = new Consumo(Fecha, areaAsociada, huesped, habitacionHuesped, valor, Pagado);
 		huesped.agregarConsumo(nuevoConsumo);
 		GrupoHuespedes grupo = huesped.getGrupoAsociado();
 		grupo.agregarConsumo(nuevoConsumo);
-		
+
 		return nuevoConsumo;
 	}
 
@@ -116,23 +116,26 @@ public class Hotel implements Serializable {
 				String[] partes = line.split(";");
 				if (partes[0].equals("Habitacion")) {
 					tipoHabitacion typeHabitacion = tipoHabitacion.ESTANDAR;
-					if (partes[1].equals("Suite")){
+					if (partes[1].equals("Suite")) {
 						typeHabitacion = tipoHabitacion.SUITE;
-					} else if (partes[1].equals("Suite Doble")){
+					} else if (partes[1].equals("Suite Doble")) {
 						typeHabitacion = tipoHabitacion.SUITEDOBLE;
-					} 
+					}
 					int balcones = Integer.parseInt(partes[2]);
 					String vista = partes[3];
 					int cocinaIntegrada = Integer.parseInt(partes[4]);
 					String ubicacion = partes[5];
 					ArrayList<Cama> camas = new ArrayList<>();
-					habitacionActual = new Habitacion(typeHabitacion, balcones, vista, cocinaIntegrada, camas, ubicacion);
+					habitacionActual = new Habitacion(typeHabitacion, balcones, vista, cocinaIntegrada, camas,
+							ubicacion);
 					habitaciones.put(habitacionActual.getIdentificador(), habitacionActual);
+					habitacionesDisponibles.add(habitacionActual);
 				} else if (partes[0].equals("Cama")) {
 					String tamanio = partes[1];
 					int capacidad = Integer.parseInt(partes[2]);
 					Cama cama = new Cama(tamanio, capacidad);
 					habitacionActual.getCamas().add(cama);
+					habitacionActual.CalcularCapacidad();
 				}
 			}
 			reader.close();
@@ -141,7 +144,7 @@ public class Hotel implements Serializable {
 		}
 		this.totalHabitaciones = habitaciones;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -202,6 +205,23 @@ public class Hotel implements Serializable {
 
 	public void setReservaciones(HashMap<Integer, Reserva> reservaciones) {
 		this.reservaciones = reservaciones;
+	}
+
+	public Habitacion buscarHabitacionLibre(tipoHabitacion tipo, int balcones, String vista, int cocinas,
+			double tarifaMax) {
+
+		for (Habitacion habitacion : habitacionesDisponibles) {
+
+			if (habitacion.getTipoHabitacion() == tipo && habitacion.getBalcon() >= balcones
+					&& habitacion.getVista().equals(vista) && habitacion.getCocinaIntegrada() >= cocinas
+					&& habitacion.getTarifaHabitacion() <= tarifaMax) {
+				
+				return habitacion; 	
+				
+			}
+
+		}
+		return null;
 	}
 
 	@Override

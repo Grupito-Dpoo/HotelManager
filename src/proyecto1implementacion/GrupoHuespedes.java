@@ -48,7 +48,11 @@ public class GrupoHuespedes implements Serializable{
         this.habitacionesAsignadas.remove(habitacion);
     }
 
-    public ArrayList<Consumo> getConsumosAsociados() {
+    public void setHabitacionesAsignadas(ArrayList<Habitacion> habitacionesAsignadas) {
+		this.habitacionesAsignadas = habitacionesAsignadas;
+	}
+
+	public ArrayList<Consumo> getConsumosAsociados() {
         return consumosAsociados;
     }
 

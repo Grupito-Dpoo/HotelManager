@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Reserva implements Serializable{
+	
+	private static Integer numReservas = 0;
 
     private Integer identificador;
     private ArrayList<Habitacion> habitaciones;
@@ -14,14 +16,16 @@ public class Reserva implements Serializable{
     private Integer cantidadPersonas;
 
     // Constructor
-    public Reserva(Integer identificador, ArrayList<Habitacion> habitaciones, LocalDate fechaInicial, LocalDate fechaFinal,
+    public Reserva(ArrayList<Habitacion> habitaciones, LocalDate fechaInicial, LocalDate fechaFinal,
                    Huesped informacionHuesped, Integer cantidadPersonas) {
-        this.identificador = identificador;
+       
+    	this.identificador = numReservas;
         this.habitaciones = habitaciones;
         this.fechaInicial = fechaInicial;
         this.fechaFinal = fechaFinal;
         this.informacionHuesped = informacionHuesped;
         this.cantidadPersonas = cantidadPersonas;
+        numReservas ++;
     }
 
     // Verificar fecha de cancelación

@@ -15,16 +15,16 @@ public class Habitacion implements Serializable {
     private ArrayList<Cama> Camas;
     private Huesped HuespedActual;
     private String Ubicacion;
-    private float tarifaHabitacion;
+    private double tarifaHabitacion;
     private boolean disponible;
 
     private static Integer habitacionesCreadas = 0;
 
-    private static HashMap<tipoHabitacion, Float> Tarifas = new HashMap<tipoHabitacion, Float>() {
+    private static HashMap<tipoHabitacion, Double> Tarifas = new HashMap<tipoHabitacion, Double>() {
         {
-            put(tipoHabitacion.SUITE, 100.0f);
-            put(tipoHabitacion.SUITEDOBLE, 150.0f);
-            put(tipoHabitacion.ESTANDAR, 50.0f);
+            put(tipoHabitacion.SUITE, 100.0);
+            put(tipoHabitacion.SUITEDOBLE, 150.0);
+            put(tipoHabitacion.ESTANDAR, 50.0);
         }
     };
 
@@ -52,7 +52,7 @@ public class Habitacion implements Serializable {
         this.disponible = disponible;
     }
 
-    public float getTarifaHabitacion() {
+    public double getTarifaHabitacion() {
         return tarifaHabitacion;
     }
 
@@ -148,15 +148,15 @@ public class Habitacion implements Serializable {
         this.CocinaIntegrada = CocinaIntegrada;
     }
 
-    public HashMap<tipoHabitacion, Float> getTarifas() {
+    public HashMap<tipoHabitacion, Double> getTarifas() {
         return Tarifas;
     }
 
-    public void setTarifas(HashMap<tipoHabitacion, Float> tarifas) {
+    public void setTarifas(HashMap<tipoHabitacion, Double> tarifas) {
         Tarifas = tarifas;
     }
 
-    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, float NuevaTarifa) {
+    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, Double NuevaTarifa) {
         Habitacion.Tarifas.put(tipoHabitacion, NuevaTarifa);
     }
 
