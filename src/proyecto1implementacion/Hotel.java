@@ -106,7 +106,7 @@ public class Hotel implements Serializable {
 
 	}
 
-	public HashMap<Integer, Habitacion> cargarHabitaciones(String nombreArchivo) {
+	public void cargarHabitaciones(String nombreArchivo) {
 		HashMap<Integer, Habitacion> habitaciones = new HashMap<>();
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo));
@@ -139,7 +139,7 @@ public class Hotel implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return habitaciones;
+		this.totalHabitaciones = habitaciones;
 	}
 	
 	public String getNombre() {
