@@ -29,7 +29,7 @@ public class Hotel implements Serializable {
 		this.reservaciones = new HashMap<>();
 		this.empleados = new HashMap<>();
 		this.servicios = new HashMap<>();
-		Restaurante restaurante = new Restaurante();
+		Restaurante restaurante = new Restaurante("Restaurante");
 		this.servicios.put("Restaurante", restaurante);
 
 	}

@@ -17,7 +17,8 @@ public class Restaurante extends Servicio {
     private ArrayList<Alimento> paraHabitacion;
     private ArrayList<Alimento> paraRestaurante;
 
-    public Restaurante() {
+    public Restaurante(String nombre) {
+        super(nombre);
         menu = new ArrayList<>();
         paraHabitacion = new ArrayList<>();
         paraRestaurante = new ArrayList<>();
