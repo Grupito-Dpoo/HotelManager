@@ -228,99 +228,100 @@ public class Aplicacion {
 			opcion = Integer.parseInt(input("Seleccione una opcion"));
 
 			switch (opcion) {
-			case 1:
+				case 1:
 
-				break;
-
-			case 2:
-
-				break;
-
-			case 3:
-
-				break;
-
-			case 4:
-
-				break;
-
-			case 5:
-
-				break;
-
-			case 6:
-
-				break;
-
-			case 7:
-
-				String nombrePrincipal = input("Nombre del huésped principal");
-				Huesped huespedPrincipal = hotel.buscarHuesped(nombrePrincipal);
-
-				if (huespedPrincipal == null) {
-					System.out.println("No existe huésped con este nombre");
 					break;
-				}
-				GrupoHuespedes grupo = huespedPrincipal.getGrupoAsociado();
 
-				try {
-					guardarFactura(grupo);
-					System.out.println("Factura generada correctamente");
-				} catch (IOException e) {
-					System.err.println("No se pudo generar la factura");
-				}
-				
-				break;
+				case 2:
 
-			case 8:
-				salirmenu = true;
-				System.out.println("Hasta pronto! " + usuarioActual.getLogin());
-				break;
+					break;
 
-			default:
-				System.out.println("Seleccione una opción válida");
-				break;
+				case 3:
+
+					break;
+
+				case 4:
+
+					break;
+
+				case 5:
+
+					break;
+
+				case 6:
+
+					break;
+
+				case 7:
+
+					String nombrePrincipal = input("Nombre del huésped principal");
+					Huesped huespedPrincipal = hotel.buscarHuesped(nombrePrincipal);
+
+					if (huespedPrincipal == null) {
+						System.out.println("No existe huésped con este nombre");
+						break;
+					}
+					GrupoHuespedes grupo = huespedPrincipal.getGrupoAsociado();
+
+					try {
+						guardarFactura(grupo);
+						System.out.println("Factura generada correctamente");
+					} catch (IOException e) {
+						System.err.println("No se pudo generar la factura");
+					}
+
+					break;
+
+				case 8:
+					salirmenu = true;
+					System.out.println("Hasta pronto! " + usuarioActual.getLogin());
+					break;
+
+				default:
+					System.out.println("Seleccione una opción válida");
+					break;
 			}
 		}
 	}
 
-	private String generarTextoFactura(GrupoHuespedes grupo){
-	
+	private String generarTextoFactura(GrupoHuespedes grupo) {
+
 		double total = 0;
-		String texto = "factura\n\nNúmero: " + facturasExpedidas + "\nHuéspedes:\n- " + grupo.getHuespedPrincipal().getNombre() + "\n";
-		
-		for(Huesped huesped : grupo.getAcompaniantes()) {
-			
-		texto += "- " + huesped.getNombre() + "\n";
+		String texto = "factura\n\nNúmero: " + facturasExpedidas + "\nHuéspedes:\n- "
+				+ grupo.getHuespedPrincipal().getNombre() + "\n";
+
+		for (Huesped huesped : grupo.getAcompaniantes()) {
+
+			texto += "- " + huesped.getNombre() + "\n";
 		}
-		
+
 		texto += "\nHabitaciones:\n";
-		
-		for(Habitacion habitacion : grupo.getHabitacionesAsignadas()) {
-			
+
+		for (Habitacion habitacion : grupo.getHabitacionesAsignadas()) {
+
 			texto += "- " + habitacion.getIdentificador() + "\n";
 		}
 		texto += "\nConsumos:\nID\tFecha\tHuesped\tArea consumo\tValor neto\tIVA\tValor total";
-		
-		for(Consumo consumo : grupo.getConsumosAsociados()) {
-			
-			if(!consumo.isPagado()) {
+
+		for (Consumo consumo : grupo.getConsumosAsociados()) {
+
+			if (!consumo.isPagado()) {
 				texto += consumo.generarTextoFactura() + "\n";
-				total+=consumo.getValorTotal();
+				total += consumo.getValorTotal();
 			}
 		}
 		texto += "\nTotal: $" + total;
-		
+
 		return texto;
 	}
-	
+
 	private void guardarFactura(GrupoHuespedes grupo) throws IOException {
-		
+
 		File archivo = new File("facturas/factura" + facturasExpedidas + ".txt");
 
 		PrintWriter pw = new PrintWriter(new FileWriter(archivo));
 		pw.println(generarTextoFactura(grupo));
-		
+
 		pw.close();
 		facturasExpedidas++;
 	}
@@ -341,80 +342,81 @@ public class Aplicacion {
 			opcion = Integer.parseInt(input("Seleccione una opcion"));
 
 			switch (opcion) {
-			case 1:
-				areaAsociada area = null;
-				boolean Pagado = false;
-				boolean salir2 = false;
-				boolean salir3 = false;
-				Scanner scanner = new Scanner(System.in);
-				int opcion2 = scanner.nextInt();
-				while (salir2 != true) {
+				case 1:
+					areaAsociada area = null;
+					boolean Pagado = false;
+					boolean salir2 = false;
+					boolean salir3 = false;
+					Scanner scanner = new Scanner(System.in);
+					int opcion2 = scanner.nextInt();
+					while (salir2 != true) {
 
-					System.out.println("Seleccione el area de consumo asociada:");
-					System.out.println("1. SPA");
-					System.out.println("2. GUIA TURISTICO");
-					System.out.println("3. RESTAURANTE");
+						System.out.println("Seleccione el area de consumo asociada:");
+						System.out.println("1. SPA");
+						System.out.println("2. GUIA TURISTICO");
+						System.out.println("3. RESTAURANTE");
 
-					if (opcion2 == 1) {
-						area = areaAsociada.SPA;
-						salir2 = true;
-					} else if (opcion2 == 2) {
-						area = areaAsociada.GUIATURISTICO;
-						salir2 = true;
-					} else if (opcion2 == 3) {
-						area = areaAsociada.RESTAURANTE;
-						salir2 = true;
-					} else {
-						System.out.println("Opcion no disponible, por favor seleccione una opcion valida");
+						if (opcion2 == 1) {
+							area = areaAsociada.SPA;
+							salir2 = true;
+						} else if (opcion2 == 2) {
+							area = areaAsociada.GUIATURISTICO;
+							salir2 = true;
+						} else if (opcion2 == 3) {
+							area = areaAsociada.RESTAURANTE;
+							salir2 = true;
+						} else {
+							System.out.println("Opcion no disponible, por favor seleccione una opcion valida");
+						}
 					}
-				}
 
-				while (salir3 != true) {
+					while (salir3 != true) {
 
-					System.out.println("¿El consumo ya fue pagado?");
-					System.out.println("1. Si, ya fue pagado");
-					System.out.println("2. No, queda registrado");
-					opcion2 = scanner.nextInt();
+						System.out.println("¿El consumo ya fue pagado?");
+						System.out.println("1. Si, ya fue pagado");
+						System.out.println("2. No, queda registrado");
+						opcion2 = scanner.nextInt();
 
-					if (opcion2 == 1) {
-						Pagado = true;
-						salir3 = true;
-					} else if (opcion2 == 2) {
-						salir3 = true;
-					} else {
-						System.out.println("Seleccione una opcion valida");
+						if (opcion2 == 1) {
+							Pagado = true;
+							salir3 = true;
+						} else if (opcion2 == 2) {
+							salir3 = true;
+						} else {
+							System.out.println("Seleccione una opcion valida");
+						}
 					}
-				}
 
-				String Fecha = input("Ingrese la fecha del consumo");
-				String NombreHuesped = input("Ingrese el nombre del huesped");
-				float valor = Float.parseFloat(input("Ingrese el valor del consumo"));
+					String Fecha = input("Ingrese la fecha del consumo");
+					String NombreHuesped = input("Ingrese el nombre del huesped");
+					float valor = Float.parseFloat(input("Ingrese el valor del consumo"));
 
-				Consumo consumoRegistrado;
-				try {
-					consumoRegistrado = hotel.RegistrarConsumoHuesped(Fecha, NombreHuesped, area, valor, Pagado);
-					System.out.println(
-							"Consumo registrado satisfactoriamente con el id:" + consumoRegistrado.getIdentificador());
-				} catch (Exception e) {
-					System.err.println(e.getMessage());
-					System.out.println("El consumo no se pudo registrar, intente nuevamente");
+					Consumo consumoRegistrado;
+					try {
+						consumoRegistrado = hotel.RegistrarConsumoHuesped(Fecha, NombreHuesped, area, valor, Pagado);
+						System.out.println(
+								"Consumo registrado satisfactoriamente con el id:"
+										+ consumoRegistrado.getIdentificador());
+					} catch (Exception e) {
+						System.err.println(e.getMessage());
+						System.out.println("El consumo no se pudo registrar, intente nuevamente");
 
-				}
+					}
 
-				break;
+					break;
 
-			case 2:
-				System.out.println("");
-				break;
+				case 2:
+					System.out.println("");
+					break;
 
-			case 3:
-				salirmenu = true;
-				System.out.println("Hasta pronto! " + usuarioActual.getLogin());
-				break;
+				case 3:
+					salirmenu = true;
+					System.out.println("Hasta pronto! " + usuarioActual.getLogin());
+					break;
 
-			default:
-				System.out.println("");
-				break;
+				default:
+					System.out.println("");
+					break;
 			}
 		}
 	}
@@ -435,16 +437,16 @@ public class Aplicacion {
 			opcion = Integer.parseInt(input("Seleccione una opcion"));
 
 			switch (opcion) {
-			case 1:
-				int opcionadmin = 0;
+				case 1:
+					int opcionadmin = 0;
 
-				while (opcionadmin != 4) {
-					System.out.println("----------------------------");
-					System.out.println("1. Cargar menú del restaurante");
-					System.out.println("2. Cargar inventario de habitaciones");
-					System.out.println("3. Cargar etc");
-					System.out.println("4. Salir");
-					opcionadmin = Integer.parseInt(input("Seleccione una opcion"));
+					while (opcionadmin != 4) {
+						System.out.println("----------------------------");
+						System.out.println("1. Cargar menú del restaurante");
+						System.out.println("2. Cargar inventario de habitaciones");
+						System.out.println("3. Cargar etc");
+						System.out.println("4. Salir");
+						opcionadmin = Integer.parseInt(input("Seleccione una opcion"));
 
 						switch (opcionadmin) {
 							case 1:
@@ -505,7 +507,7 @@ public class Aplicacion {
 		}
 	}
 
-	public void modificarAlimentoPrint(){
+	public void modificarAlimentoPrint() {
 		imprimirMenu(((Restaurante) hotel.getServicios().get("Restaurante")).getMenu());
 		String id = input("Ingrese el Id del plato a modificar");
 		Alimento nuevoAlimento = ((Restaurante) hotel.getServicios().get("Restaurante"))
