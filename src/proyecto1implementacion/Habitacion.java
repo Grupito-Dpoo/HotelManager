@@ -15,14 +15,18 @@ public class Habitacion implements Serializable {
     private ArrayList<Cama> Camas;
     private Huesped HuespedActual;
     private String Ubicacion;
-    private static Integer habitacionesCreadas = 0;
-    
-    private static HashMap<tipoHabitacion,Float> Tarifas = new HashMap<tipoHabitacion, Float>() {{
-        put(tipoHabitacion.SUITE, 0.0f);
-        put(tipoHabitacion.SUITEDOBLE, 0.0f);
-        put(tipoHabitacion.ESTANDAR, 0.0f);
-    }};
+    private float tarifaHabitacion;
+    private boolean disponible;
 
+    private static Integer habitacionesCreadas = 0;
+
+    private static HashMap<tipoHabitacion, Float> Tarifas = new HashMap<tipoHabitacion, Float>() {
+        {
+            put(tipoHabitacion.SUITE, 100.0f);
+            put(tipoHabitacion.SUITEDOBLE, 150.0f);
+            put(tipoHabitacion.ESTANDAR, 50.0f);
+        }
+    };
 
     public Habitacion(tipoHabitacion TipoHabitacion, int Balcon,
             String Vista, int CocinaIntegrada, ArrayList<Cama> Camas,
@@ -35,7 +39,25 @@ public class Habitacion implements Serializable {
         this.Ubicacion = Ubicacion;
         this.Identificador = habitacionesCreadas;
         Habitacion.habitacionesCreadas += 1;
+        this.disponible = true;
+        this.tarifaHabitacion = Tarifas.get(this.TipoHabitacion);
         this.CalcularCapacidad();
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public float getTarifaHabitacion() {
+        return tarifaHabitacion;
+    }
+
+    public void setTarifaHabitacion(float tarifaHabitacion) {
+        this.tarifaHabitacion = tarifaHabitacion;
     }
 
     public int getIdentificador() {
@@ -134,7 +156,7 @@ public class Habitacion implements Serializable {
         Tarifas = tarifas;
     }
 
-    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, float NuevaTarifa){
+    public void cambiarTarifaTipoHabitacion(tipoHabitacion tipoHabitacion, float NuevaTarifa) {
         Habitacion.Tarifas.put(tipoHabitacion, NuevaTarifa);
     }
 
