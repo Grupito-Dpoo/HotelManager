@@ -17,7 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.management.openmbean.OpenDataException;
+
 import proyecto1implementacion.Alimento.tipoAlimento;
+import proyecto1implementacion.Habitacion.tipoHabitacion;
 import proyecto1implementacion.Servicio.areaAsociada;
 
 public class Aplicacion {
@@ -482,16 +485,16 @@ public class Aplicacion {
 								modificarAlimentoPrint();
 								break;
 							case 2:
-								cargarInventarioHabitaciones();
+								modificarHabitacionPrint();
 								break;
 							case 3:
+								modificarTarifaPrint();
 								break;
 							case 4:
 								System.out.println("Regresando al menu...");
 								break;
 							default:
 								System.out.println("Opción invalida, por favor seleccione una opción valida.");
-								System.out.println("Se ha cambiado la informacion de un plato.");
 								break;
 						}
 					}
@@ -505,6 +508,43 @@ public class Aplicacion {
 
 			}
 		}
+	}
+
+	private void modificarTarifaPrint() {
+
+		try {
+
+			boolean salir = false;
+			tipoHabitacion modificar = null;
+			while (!salir) {
+				System.out.println("1. Tarifa de las habitaciones ESTANDAR");
+				System.out.println("2. Tarifa de las habitaciones SUITE");
+				System.out.println("3. Tarifa de las habitaciones SUITE DOBLE");
+				int opcion = Integer.parseInt(input("Seleccione el tipo habitacion para cambiar su tarifa"));
+
+				if (opcion == 1) {
+					modificar = tipoHabitacion.ESTANDAR;
+					salir = true;
+				} else if (opcion == 2) {
+					modificar = tipoHabitacion.SUITE;
+					salir = true;
+				} else if (opcion == 3) {
+					modificar = tipoHabitacion.SUITEDOBLE;
+					salir = true;
+				} else {
+					System.out.println("Opcion invalida, seleccione una opcion valida");
+				}
+			}
+			float NuevaTarifa = Float.parseFloat(input("Ingrese la nueva tarifa para el tipo " + modificar));
+			Habitacion.cambiarTarifaTipoHabitacion(modificar, NuevaTarifa);
+			System.out.println("Tarifa cambiada correctamente");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
+
+	private void modificarHabitacionPrint() {
 	}
 
 	public void modificarAlimentoPrint() {
