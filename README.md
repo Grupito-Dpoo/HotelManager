@@ -6,11 +6,11 @@
 - Pablo Andrés Restrepo Rodríguez  202011172
 
 Notas: 
-1. Carga de archivos: Para cargar archivos de modificación creación de inventario, se deben usar las siguientes rutas:
+1. Carga de archivos: Para cargar archivos de modificación o creación de inventario, se deben usar las siguientes rutas:
 - Menu: data/Alimentos.txt
 - Habitaciones: data/Habitaciones.txt
 
-2. Cargar y guardar aplicacion: La persistencia de la aplicación se desarrolla mediante estas dos opciones de serialización, se recomienda cargar archivos la primera vez. 
+2. Cargar y guardar aplicacion: La persistencia de la aplicación se desarrolla mediante estas dos opciones de serialización, se recomienda cargar archivos la primera vez que se corra la aplicación. 
 Después de alguna modificación que se desee guardar, se debe volver a menu principal y guardar aplicación. De igual manera, cuando se quiera correr y recuperar la información se debe cargar la aplicación.
 
 3. Inicio de sección: Se han dispuesto estos roles para probar la aplicación: 
