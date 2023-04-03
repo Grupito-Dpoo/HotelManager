@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.management.openmbean.OpenDataException;
-
 import proyecto1implementacion.Alimento.tipoAlimento;
 import proyecto1implementacion.Habitacion.tipoHabitacion;
 import proyecto1implementacion.Servicio.areaAsociada;
@@ -545,6 +543,40 @@ public class Aplicacion {
 	}
 
 	private void modificarHabitacionPrint() {
+		try {
+			int Id = Integer.parseInt(input("Ingrese el Identificador de la habitacion a modificar"));
+			Habitacion habitacionModificar = hotel.buscarHabitacion(Id);
+			boolean salir = false;
+			tipoHabitacion modificar = null;
+			while (!salir) {
+				System.out.println("1. ESTANDAR");
+				System.out.println("2. SUITE");
+				System.out.println("3. SUITE DOBLE");
+				int opcion = Integer.parseInt(input("Seleccione el nuevo tipo de habitacion"));
+
+				if (opcion == 1) {
+					modificar = tipoHabitacion.ESTANDAR;
+					salir = true;
+				} else if (opcion == 2) {
+					modificar = tipoHabitacion.SUITE;
+					salir = true;
+				} else if (opcion == 3) {
+					modificar = tipoHabitacion.SUITEDOBLE;
+					salir = true;
+				} else {
+					System.out.println("Opcion invalida, seleccione una opcion valida");
+				}
+			}
+			int balcones = Integer.parseInt(input("Ingrese el numero de balcones de la habitacion"));
+			String vista = input("Ingrese la vista de la habitacion");
+			int cocinaIntegrada = Integer.parseInt(input("Ingrese el numero de concinas Integrales"));
+			String ubi = input("Ingrese la ubicacion de la habitacion");
+			hotel.modificarHabitacion(habitacionModificar, modificar, balcones, vista, cocinaIntegrada , ubi);
+			System.out.println("Habitacion actualizada correctamente");
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public void modificarAlimentoPrint() {

@@ -1,9 +1,5 @@
 package proyecto1implementacion;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 
 import proyecto1implementacion.Servicio.areaAsociada;
